@@ -12469,31 +12469,86 @@ extern __bank0 __bit __timeout;
 # 10 "My_MODEM_UART.c" 2
 
 # 1 "./My_MODEM_UART.h" 1
-# 17 "./My_MODEM_UART.h"
+# 16 "./My_MODEM_UART.h"
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\stdbool.h" 1 3
+# 16 "./My_MODEM_UART.h" 2
+
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\string.h" 1 3
+# 25 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\string.h" 3
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\bits/alltypes.h" 1 3
+# 421 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\bits/alltypes.h" 3
+typedef struct __locale_struct * locale_t;
+# 26 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\string.h" 2 3
+
+void *memcpy (void *restrict, const void *restrict, size_t);
+void *memmove (void *, const void *, size_t);
+void *memset (void *, int, size_t);
+int memcmp (const void *, const void *, size_t);
+void *memchr (const void *, int, size_t);
+
+char *strcpy (char *restrict, const char *restrict);
+char *strncpy (char *restrict, const char *restrict, size_t);
+
+char *strcat (char *restrict, const char *restrict);
+char *strncat (char *restrict, const char *restrict, size_t);
+
+int strcmp (const char *, const char *);
+int strncmp (const char *, const char *, size_t);
+
+int strcoll (const char *, const char *);
+size_t strxfrm (char *restrict, const char *restrict, size_t);
+
+char *strchr (const char *, int);
+char *strrchr (const char *, int);
+
+size_t strcspn (const char *, const char *);
+size_t strspn (const char *, const char *);
+char *strpbrk (const char *, const char *);
+char *strstr (const char *, const char *);
+char *strtok (char *restrict, const char *restrict);
+
+size_t strlen (const char *);
+
+char *strerror (int);
+
+
+
+
+char *strtok_r (char *restrict, const char *restrict, char **restrict);
+int strerror_r (int, char *, size_t);
+char *stpcpy(char *restrict, const char *restrict);
+char *stpncpy(char *restrict, const char *restrict, size_t);
+size_t strnlen (const char *, size_t);
+char *strdup (const char *);
+char *strndup (const char *, size_t);
+char *strsignal(int);
+char *strerror_l (int, locale_t);
+int strcoll_l (const char *, const char *, locale_t);
+size_t strxfrm_l (char *restrict, const char *restrict, size_t, locale_t);
+
+
+
+
+void *memccpy (void *restrict, const void *restrict, int, size_t);
 # 17 "./My_MODEM_UART.h" 2
-# 40 "./My_MODEM_UART.h"
-static char modem_str[20][20] = {0};
-static char modem_buffer_index=0;
+# 39 "./My_MODEM_UART.h"
+char modem_str[11][20] = {0};
+char modem_buffer_index=0;
+char modem_read_buffer=0;
+uint8_t position = 0;
 
 
 void UART1_Init(void);
 void UART1_Write(uint8_t data);
 void UART1_SendString(char *str);
 uint8_t UART1_Read(void);
-_Bool UART1_DataIsReceived(void);
+_Bool Modem_DataIsReceived(void);
 
 void Modem_Read(void);
 void Modem_EmptyData(void);
 void Modem_read_cmd(char *str);
 void Modem_write_cmd(char *str);
 # 11 "My_MODEM_UART.c" 2
-
-# 1 "./mayen_01.h" 1
-# 44 "./mayen_01.h"
-void Modem_BOOT(void);
-void PIC_Init(void);
-# 12 "My_MODEM_UART.c" 2
 
 
 
@@ -12523,7 +12578,7 @@ void UART1_Init(void)
 
 
     TX1STAbits.SYNC = 0;
-# 49 "My_MODEM_UART.c"
+# 48 "My_MODEM_UART.c"
     TX1STAbits.SENDB = 0;
 
 
@@ -12533,7 +12588,7 @@ void UART1_Init(void)
 
 
     TX1STAbits.BRGH = 1;
-# 66 "My_MODEM_UART.c"
+# 65 "My_MODEM_UART.c"
     TX1STAbits.TX9D = 0;
 
 
@@ -12578,36 +12633,39 @@ void UART1_Init(void)
 
     PIE3bits.RC1IE = 1;
 
-
+    Modem_EmptyData();
 }
-# 120 "My_MODEM_UART.c"
+# 119 "My_MODEM_UART.c"
 void UART1_Write(uint8_t data)
 {
     while (PIR3bits.TX1IF == 0);
     TX1REG = data;
     while (TX1STAbits.TRMT == 0);
 }
-# 134 "My_MODEM_UART.c"
+# 133 "My_MODEM_UART.c"
 uint8_t UART1_Read()
 {
 
     return RC1REG;
 }
-# 147 "My_MODEM_UART.c"
-_Bool UART1_DataIsReceived(void)
+# 146 "My_MODEM_UART.c"
+_Bool Modem_DataIsReceived(void)
 {
 
-    if (modem_buffer_index != 0)
+    if (modem_buffer_index != modem_read_buffer)
     {
         return 1;
+
     }
     else
     {
+        modem_buffer_index = 0;
+        modem_read_buffer = 0;
         return 0;
     }
 
 }
-# 168 "My_MODEM_UART.c"
+# 170 "My_MODEM_UART.c"
 void UART1_SendString(char *str)
 {
     while (*str != '\0')
@@ -12618,68 +12676,83 @@ void UART1_SendString(char *str)
     UART1_Write(0x0D);
     UART1_Write(0x0A);
 }
-# 186 "My_MODEM_UART.c"
+# 188 "My_MODEM_UART.c"
 void Modem_Read(void)
 {
-    static uint8_t position = 0;
+
     char data;
 
     data = UART1_Read();
 
-    if ((data != '\0') || (data != 0x0A))
+    if (data != '\0')
     {
-
-        modem_str[modem_buffer_index][position] = data;
-        position++;
-
-        modem_str[modem_buffer_index][position] = '\0';
-
         if (data == 0x0D)
         {
-
+            if (position < 1)
+            {
+                modem_buffer_index++;
+            }
+            else
+            {
+                modem_str[modem_buffer_index][position] = '\0';
+            }
             position = 0;
-            modem_buffer_index++;
+        }
+        else if (data == 0x0A)
+        {
+
+
         }
         else
         {
-
+            modem_str[modem_buffer_index][position] = data;
+            position++;
         }
     }
+    else
+    {
+        position = 0;
+    }
 
-
-
-
-
-
-
+    if (modem_buffer_index == 9)
+    {
+        modem_buffer_index = 0;
+    }
 }
-# 228 "My_MODEM_UART.c"
+# 238 "My_MODEM_UART.c"
 void Modem_EmptyData(void)
 {
     PIE3bits.RC1IE = 0;
 
-    read_modem[0] = 0;
-    modem_buffer_index=0;
+
+    modem_buffer_index = 0;
+    modem_read_buffer = 0;
+    position = 0;
 
 
     PIE3bits.RC1IE = 1;
 }
-# 246 "My_MODEM_UART.c"
+# 258 "My_MODEM_UART.c"
 void Modem_read_cmd(char *str)
 {
-    uint8_t position = 0;
+    uint8_t readPosition = 0;
 
-    while (modem_str[modem_buffer_index][position] != 0x0A)
+    while (modem_str[modem_read_buffer][readPosition] != '\0' && modem_str[modem_read_buffer][readPosition] != 0x0D)
     {
 
-        *str = modem_str[modem_buffer_index][position];
+        *str = modem_str[modem_read_buffer][readPosition];
         str++;
-        position++;
+        *str ='\0';
+        readPosition++;
     }
-    modem_buffer_index--;
+    modem_read_buffer++;
+    if (modem_read_buffer == 9)
+    {
+        modem_read_buffer = 0;
+    }
 
 }
-# 268 "My_MODEM_UART.c"
+# 285 "My_MODEM_UART.c"
 void Modem_write_cmd(char *str)
 {
     UART1_SendString(str);

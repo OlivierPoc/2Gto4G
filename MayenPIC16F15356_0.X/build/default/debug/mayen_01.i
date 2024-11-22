@@ -12531,23 +12531,28 @@ size_t strxfrm_l (char *restrict, const char *restrict, size_t, locale_t);
 void *memccpy (void *restrict, const void *restrict, int, size_t);
 # 17 "mayen_01.c" 2
 
+
+# 1 "./mayen_01.h" 1
+# 15 "./mayen_01.h"
 # 1 "./My_MODEM_UART.h" 1
-# 40 "./My_MODEM_UART.h"
-static char modem_str[20][20] = {0};
-static char modem_buffer_index=0;
+# 39 "./My_MODEM_UART.h"
+char modem_str[11][20] = {0};
+char modem_buffer_index=0;
+char modem_read_buffer=0;
+uint8_t position = 0;
 
 
 void UART1_Init(void);
 void UART1_Write(uint8_t data);
 void UART1_SendString(char *str);
 uint8_t UART1_Read(void);
-_Bool UART1_DataIsReceived(void);
+_Bool Modem_DataIsReceived(void);
 
 void Modem_Read(void);
 void Modem_EmptyData(void);
 void Modem_read_cmd(char *str);
 void Modem_write_cmd(char *str);
-# 18 "mayen_01.c" 2
+# 15 "./mayen_01.h" 2
 
 # 1 "./My_POELE_UART.h" 1
 # 26 "./My_POELE_UART.h"
@@ -12565,7 +12570,7 @@ void POELE_Read(void);
 void RS232_EmptyData(void);
 void POELE_cmd(char *str);
 void POELE_SendOK(void);
-# 19 "mayen_01.c" 2
+# 16 "./mayen_01.h" 2
 
 # 1 "./MyLib_LCD.h" 1
 # 72 "./MyLib_LCD.h"
@@ -12584,13 +12589,11 @@ void LCD_WriteHex(uint8_t data);
 uint8_t LCD_ReadQuartet(void);
 uint8_t LCD_ReadQuartet_bit(void);
 _Bool LCD_ReadBF_bool(void);
-# 20 "mayen_01.c" 2
-
-# 1 "./mayen_01.h" 1
-# 44 "./mayen_01.h"
+# 17 "./mayen_01.h" 2
+# 49 "./mayen_01.h"
 void Modem_BOOT(void);
 void PIC_Init(void);
-# 21 "mayen_01.c" 2
+# 19 "mayen_01.c" 2
 
 
 
@@ -12628,9 +12631,9 @@ void PIC_Init(void);
 
 
 #pragma config CP = OFF
-# 96 "mayen_01.c"
+# 94 "mayen_01.c"
 static _Bool message = 0;
-# 115 "mayen_01.c"
+# 113 "mayen_01.c"
 void main(void)
 {
     char str_modem[20] = {0};
@@ -12653,9 +12656,11 @@ void main(void)
     {
         if (PORTCbits.RC0 == 0)
         {
+            LCD_Clear();
             Modem_BOOT();
             Modem_EmptyData();
             while (PORTCbits.RC0 == 0);
+            LCD_PrintString("Modem:ON");
         }
 
         if (PORTCbits.RC1 == 0)
@@ -12672,6 +12677,7 @@ void main(void)
 
         if (PORTCbits.RC2 == 0)
         {
+            LCD_Clear();
             ptr = "AT+GMI";
             Modem_write_cmd(ptr);
             LCD_CursorPosition(1, 1);
@@ -12681,7 +12687,7 @@ void main(void)
             while (PORTCbits.RC2 == 0);
         }
 
-        if ((UART1_DataIsReceived()))
+        if (Modem_DataIsReceived())
         {
             Modem_read_cmd(str_modem);
             LCD_CursorPosition(2, 1);
@@ -12786,7 +12792,7 @@ void main(void)
 
     while (1);
 }
-# 278 "mayen_01.c"
+# 279 "mayen_01.c"
 void __attribute__((picinterrupt(("")))) INTERRUPT_InterruptManager(void)
 {
 
@@ -12805,7 +12811,7 @@ void __attribute__((picinterrupt(("")))) INTERRUPT_InterruptManager(void)
         {
             Modem_Read();
         }
-# 306 "mayen_01.c"
+# 307 "mayen_01.c"
     }
 }
 
@@ -12851,7 +12857,7 @@ void PIC_Init(void)
     RX2DTPPS = 0x0B;
     RX1DTPPS = 0x16;
 }
-# 359 "mayen_01.c"
+# 360 "mayen_01.c"
 void Modem_BOOT(void)
 {
     do { LATCbits.LATC5 = 1; } while(0);

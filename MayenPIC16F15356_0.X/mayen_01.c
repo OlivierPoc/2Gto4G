@@ -15,9 +15,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <string.h>
-#include "My_MODEM_UART.h"
-#include "My_POELE_UART.h"
-#include "MyLib_LCD.h"
+
 #include "mayen_01.h"
 
 // CONFIG1
@@ -134,9 +132,11 @@ void main(void)
     {
         if (S0 == PRESS)
         {
+            LCD_Clear();
             Modem_BOOT();
             Modem_EmptyData();
             while (S0 == PRESS);
+            LCD_PrintString("Modem:ON"); //indique que le pic est en fonctionement
         }
 
         if (S1 == PRESS)
@@ -153,6 +153,7 @@ void main(void)
 
         if (S2 == PRESS)
         {
+            LCD_Clear();
             ptr = "AT+GMI"; //AT+GMI Request Manufacturer Identification
             Modem_write_cmd(ptr);
             LCD_CursorPosition(1, 1);
@@ -162,7 +163,7 @@ void main(void)
             while (S2 == PRESS);
         }
 
-        if (Modem_DataReady) // Modem Receive Buffer is full ('1')
+        if (Modem_DataIsReceived()) // Modem Receive Buffer is full ('1')
         {
             Modem_read_cmd(str_modem); // read data form modem
             LCD_CursorPosition(2, 1);

@@ -1,5 +1,5 @@
 /*
- * File:  My_UART1.c
+ * File:  My_MODEM_UART.c
  * Author: Olivier POCHON
  * Company: 
  * Desc.: Libraire pour la communication serie avec le PORT UART1
@@ -9,7 +9,6 @@
 
 #include <xc.h>
 #include "My_MODEM_UART.h"
-#include "mayen_01.h"
 
 //---------------------------------------------------------
 // Sous programme UART1_Init modem communication
@@ -107,7 +106,7 @@ void UART1_Init(void)
     // Enable interupt
     PIE3bits.RC1IE = 1;
 
-
+    Modem_EmptyData();
 }
 //---------------------------------------------------------
 
@@ -144,15 +143,18 @@ uint8_t UART1_Read()
 // Desc.: data is received return true or false
 // Ver. Date: V00 221110 Création (YYYYMMDD)	
 //---------------------------------------------------------------------
-bool UART1_DataIsReceived(void)
+bool Modem_DataIsReceived(void)
 {
 
-    if (modem_buffer_index != 0)
+    if (modem_buffer_index != modem_read_buffer)
     {
         return true;
+
     }
     else
     {
+        modem_buffer_index = 0;
+        modem_read_buffer = 0;
         return false;
     }
 
@@ -185,37 +187,45 @@ void UART1_SendString(char *str)
 //---------------------------------------------------------
 void Modem_Read(void)
 {
-    static uint8_t position = 0;
+
     char data;
 
     data = UART1_Read();
 
-    if ((data != '\0') || (data != LF))
+    if (data != '\0') //&& (data != LF) && (data != CR)
     {
-//        read_modem[position] = data;
-        modem_str[modem_buffer_index][position] = data;
-        position++;
-//        read_modem[position] = '\0';
-        modem_str[modem_buffer_index][position] = '\0';
-
         if (data == CR) // si fin de transmission 
         {
-//            cmdModemReceive = true;
+            if (position < 1)
+            {
+                modem_buffer_index++;
+            }
+            else
+            {
+                modem_str[modem_buffer_index][position] = '\0';
+            }
             position = 0;
-            modem_buffer_index++;
+        }
+        else if (data == LF) // si fin de transmission 
+        {
+            //            modem_str[modem_buffer_index][position] = '\0';
+            //            position=0; 
         }
         else
         {
-//            cmdModemReceive = false;
+            modem_str[modem_buffer_index][position] = data;
+            position++;
         }
     }
+    else
+    {
+        position = 0;
+    }
 
-    //    if ((data == '\0')
-    //    else
-    //    {
-    //        cmdModemReceive = false;
-    //        position = 0;
-    //    }
+    if (modem_buffer_index == 9)
+    {
+        modem_buffer_index = 0;
+    }
 }
 //---------------------------------------------------------
 
@@ -229,9 +239,11 @@ void Modem_EmptyData(void)
 {
     PIE3bits.RC1IE = 0;
 
-//    read_modem[0] = 0;
-    modem_buffer_index=0;
-//    cmdModemReceive = false;
+    //    read_modem[0] = 0;
+    modem_buffer_index = 0;
+    modem_read_buffer = 0;
+    position = 0;
+    //    cmdModemReceive = false;
 
     PIE3bits.RC1IE = 1;
 }
@@ -245,16 +257,21 @@ void Modem_EmptyData(void)
 //---------------------------------------------------------------------
 void Modem_read_cmd(char *str)
 {
-    uint8_t position = 0;
+    uint8_t readPosition = 0;
 
-    while (modem_str[modem_buffer_index][position] != LF)
+    while (modem_str[modem_read_buffer][readPosition] != '\0' && modem_str[modem_read_buffer][readPosition] != CR)
     {
         //*str = read_modem[position];
-        *str = modem_str[modem_buffer_index][position];
+        *str = modem_str[modem_read_buffer][readPosition];
         str++;
-        position++;
+        *str ='\0';
+        readPosition++;
     }
-    modem_buffer_index--;
+    modem_read_buffer++;
+    if (modem_read_buffer == 9)
+    {
+        modem_read_buffer = 0;
+    }
     // cmdModemReceive = false;
 }
 //-------------------------------------------------------------------
@@ -270,9 +287,5 @@ void Modem_write_cmd(char *str)
     UART1_SendString(str);
 }
 //-------------------------------------------------------------------
-
-
-
-
 
 //================== END Of File ======================================

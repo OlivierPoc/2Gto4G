@@ -12,10 +12,9 @@
 #ifndef My_UART1_H
 #define	My_UART1_H
 
-//----- Including libraries --
 #include <stdint.h>
 #include <stdbool.h>
-#include <xc.h> // include processor files - each processor file is guarded.  
+#include <string.h>
 
 //***************MODEM DEFINITION***************
 //--- Define AT  CMD
@@ -25,7 +24,6 @@
 #define MAX_SIZE_MESSAGE_MODEM 20
 //char read_modem[MAX_SIZE_MESSAGE_MODEM]; // data modem communication
 
-#define Modem_DataReady  (UART1_DataIsReceived())
 
 //bool cmdModemReceive;  // indication de la réception d'une commande
 
@@ -34,18 +32,21 @@
 #define USART1_TX_IO   TRISCbits.TRISC7    // define I/O for Tx
 
 //----- Constant Definiton  ----------------------------
-#define LIGNE   20
+#define LIGNE   11
 #define COLONNE  20
+
 //----- Global variable  -----------------------------
-static char modem_str[LIGNE][COLONNE] = {0};
-static char modem_buffer_index=0;
+char modem_str[LIGNE][COLONNE] = {0};
+char modem_buffer_index=0;
+char modem_read_buffer=0;
+uint8_t position = 0;
 
 //----- Function Declarations -----------------------------
 void UART1_Init(void);
 void UART1_Write(uint8_t data);
 void UART1_SendString(char *str);
 uint8_t UART1_Read(void);
-bool UART1_DataIsReceived(void);
+bool Modem_DataIsReceived(void);
 
 void Modem_Read(void);
 void Modem_EmptyData(void);

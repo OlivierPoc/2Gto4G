@@ -12,6 +12,10 @@
 #ifndef My_MAYEN_H
 #define	My_MAYEN_H
 
+#include "My_MODEM_UART.h"
+#include "My_POELE_UART.h"
+#include "MyLib_LCD.h"
+
 //==============================================================================
 //gestion IO
 //==============================================================================
@@ -38,6 +42,7 @@
 #define POWERKEY_OFF()        do { LATCbits.LATC5 = 0; } while(0)
 #define POWERKEY_Toggle()     do { LATCbits.LATC5 = ~LATCbits.LATC5; } while(0)
 //----------------------------------------------------------
+
 
 
 //----- Function Declarations -----------------------------
