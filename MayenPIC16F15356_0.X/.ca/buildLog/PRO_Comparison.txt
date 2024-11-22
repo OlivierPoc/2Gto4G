@@ -1,0 +1,36 @@
+make -f nbproject/Makefile-PRO_Comparison.mk SUBPROJECTS= .clean-conf
+make[1]: Entering directory 'O:/EMF/_Projet/_Mayen/fw/PIC16F15356_0.X'
+rm -f  -r .ca/build/PRO_Comparison/production
+rm -f  -r .ca/dist/PRO_Comparison/production
+make[1]: Leaving directory 'O:/EMF/_Projet/_Mayen/fw/PIC16F15356_0.X'
+[32mCLEAN SUCCESSFUL (total time: 203ms)[0m
+make -f nbproject/Makefile-PRO_Comparison.mk SUBPROJECTS= .build-conf
+make[1]: Entering directory 'O:/EMF/_Projet/_Mayen/fw/PIC16F15356_0.X'
+make  -f nbproject/Makefile-PRO_Comparison.mk .ca/dist/PRO_Comparison/production/PIC16F15356_0.X.production.hex
+make[2]: Entering directory 'O:/EMF/_Projet/_Mayen/fw/PIC16F15356_0.X'
+"C:\Program Files\Microchip\xc8\v2.40\bin\xc8-cc.exe"  -mcpu=16F15356 -c   -mdfp="C:/Users/olive/.mchp_packs/Microchip/PIC16F1xxxx_DFP/1.16.323/xc8"  -fno-short-double -fno-short-float -O0 -fasmfile -Og -maddrqual=ignore -xassembler-with-cpp -mwarn=-3 -Wa,-a -DXPRJ_PRO_Comparison=PRO_Comparison  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mno-osccal -mno-resetbits -mno-save-resetbits -mno-download -mno-stackcall -mdefault-config-bits   -std=c99 -gdwarf-3 -mstack=compiled:auto:auto -mafrlcsj     -o .ca/build/PRO_Comparison/production/My_UART1.p1 My_UART1.c 
+"C:\Program Files\Microchip\xc8\v2.40\bin\xc8-cc.exe"  -mcpu=16F15356 -c   -mdfp="C:/Users/olive/.mchp_packs/Microchip/PIC16F1xxxx_DFP/1.16.323/xc8"  -fno-short-double -fno-short-float -O0 -fasmfile -Og -maddrqual=ignore -xassembler-with-cpp -mwarn=-3 -Wa,-a -DXPRJ_PRO_Comparison=PRO_Comparison  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mno-osccal -mno-resetbits -mno-save-resetbits -mno-download -mno-stackcall -mdefault-config-bits   -std=c99 -gdwarf-3 -mstack=compiled:auto:auto -mafrlcsj     -o .ca/build/PRO_Comparison/production/My_UART2_1.p1 My_UART2_1.c 
+"C:\Program Files\Microchip\xc8\v2.40\bin\xc8-cc.exe"  -mcpu=16F15356 -c   -mdfp="C:/Users/olive/.mchp_packs/Microchip/PIC16F1xxxx_DFP/1.16.323/xc8"  -fno-short-double -fno-short-float -O0 -fasmfile -Og -maddrqual=ignore -xassembler-with-cpp -mwarn=-3 -Wa,-a -DXPRJ_PRO_Comparison=PRO_Comparison  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mno-osccal -mno-resetbits -mno-save-resetbits -mno-download -mno-stackcall -mdefault-config-bits   -std=c99 -gdwarf-3 -mstack=compiled:auto:auto -mafrlcsj     -o .ca/build/PRO_Comparison/production/main_01.p1 main_01.c 
+"C:\Program Files\Microchip\xc8\v2.40\bin\xc8-cc.exe"  -mcpu=16F15356 -Wl,-Map=.ca/dist/PRO_Comparison/production/PIC16F15356_0.X.production.map  -DXPRJ_PRO_Comparison=PRO_Comparison  -Wl,--defsym=__MPLAB_BUILD=1   -mdfp="C:/Users/olive/.mchp_packs/Microchip/PIC16F1xxxx_DFP/1.16.323/xc8"  -fno-short-double -fno-short-float -O0 -fasmfile -Og -maddrqual=ignore -xassembler-with-cpp -mwarn=-3 -Wa,-a -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mno-osccal -mno-resetbits -mno-save-resetbits -mno-download -mno-stackcall -mdefault-config-bits -mafrlcsj -std=c99 -gdwarf-3 -mstack=compiled:auto:auto      -Wl,--memorysummary,.ca/dist/PRO_Comparison/production/memoryfile.xml -o .ca/dist/PRO_Comparison/production/PIC16F15356_0.X.production.elf  .ca/build/PRO_Comparison/production/My_UART1.p1 .ca/build/PRO_Comparison/production/My_UART2_1.p1 .ca/build/PRO_Comparison/production/main_01.p1     
+My_UART1.c:108:: warning: (520) function "_UART1_Write" is never called
+My_UART1.c:122:: warning: (520) function "_UART1_Read" is never called
+My_UART1.c:149:: warning: (520) function "_UART1_SendString" is never called
+My_UART1.c:165:: warning: (520) function "_Modem_Read" is never called
+
+Memory Summary:
+    Program space        used   49Eh (  1182) of  4000h words   (  7.2%)
+    Data space           used    A4h (   164) of   800h bytes   (  8.0%)
+    EEPROM space         None available
+    Configuration bits   used     5h (     5) of     5h words   (100.0%)
+    ID Location space    used     4h (     4) of     4h bytes   (100.0%)
+
+
+You have compiled using a FREE license.
+With a PRO license, memory use would be:
+    Program space        used   386h (   902) of  4000h words   (  5.5%)
+    Data space           used    A4h (   164) of   800h bytes   (  8.0%)
+
+
+make[2]: Leaving directory 'O:/EMF/_Projet/_Mayen/fw/PIC16F15356_0.X'
+make[1]: Leaving directory 'O:/EMF/_Projet/_Mayen/fw/PIC16F15356_0.X'
+[32mBUILD SUCCESSFUL (total time: 3s)[0m
