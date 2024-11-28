@@ -12555,11 +12555,11 @@ void Modem_write_cmd(char *str);
 # 15 "./mayen_01.h" 2
 
 # 1 "./My_POELE_UART.h" 1
-# 26 "./My_POELE_UART.h"
+# 25 "./My_POELE_UART.h"
 static char read_RS232[25];
 
 _Bool cmdRS323Receive;
-# 37 "./My_POELE_UART.h"
+# 36 "./My_POELE_UART.h"
 void UART2_Init(void);
 void UART2_Write(uint8_t data);
 void POELE_SendStringCRLF(char *str);
@@ -12693,6 +12693,15 @@ void main(void)
             LCD_CursorPosition(2, 1);
             LCD_PrintString(str_modem);
             LATBbits.LATB5 = 0;
+            if (strcmp("sms", str_modem) == 0)
+            {
+
+            }
+            else
+            {
+                POELE_SendStringCRLF(str_modem);
+            }
+            LATBbits.LATB5 = 1;
         }
 
         if ((POELE_DataIsReceived()))
@@ -12700,22 +12709,7 @@ void main(void)
             LATBbits.LATB4 = 0;
             POELE_cmd(str_POELE);
 
-            if (strcmp("AT", str_POELE) == 0)
-            {
-                POELE_SendStringCRLF("");
-                POELE_SendOK();
-            }
-            else if (strcmp("AT&F", str_POELE) == 0)
-            {
-                POELE_SendStringCRLF("");
-                POELE_SendOK();
-            }
-            else if (strcmp("ATE0", str_POELE) == 0)
-            {
-                POELE_SendString("ATE0");
-                POELE_SendOK();
-            }
-            else if (strcmp("AT+GMI", str_POELE) == 0)
+            if (strcmp("AT+GMI", str_POELE) == 0)
             {
                 POELE_SendStringCRLF("Cinterion");
                 POELE_SendOK();
@@ -12725,64 +12719,11 @@ void main(void)
                 POELE_SendStringCRLF("BGS2-W");
                 POELE_SendOK();
             }
-            else if (strcmp("AT+CNMI=0,0,0,0,1", str_POELE) == 0)
-            {
-                POELE_SendString("");
-                POELE_SendOK();
-            }
-            else if (strcmp("AT+CMGD=1", str_POELE) == 0)
-            {
-                POELE_SendStringCRLF("");
-                POELE_SendOK();
-            }
-            else if (strcmp("AT+CMGD=2", str_POELE) == 0)
-            {
-                POELE_SendStringCRLF("");
-                POELE_SendOK();
-            }
-            else if (strcmp("AT+CMGD=3", str_POELE) == 0)
-            {
-                POELE_SendStringCRLF("");
-                POELE_SendOK();
-            }
-            else if (strcmp("AT+CMGV=1", str_POELE) == 0)
-            {
-                POELE_SendStringCRLF("");
-                POELE_SendOK();
-            }
-            else if (strcmp("AT+CMGF=1", str_POELE) == 0)
-            {
-                POELE_SendStringCRLF("");
-                POELE_SendOK();
-            }
-            else if (strcmp("AT+CMGR=1", str_POELE) == 0)
-            {
-                if (message)
-                {
-                    POELE_SendString("\r\n+CMGR:0,\"REC UNREAD\",\"+41793018256\",,\"23/01/01,22:10:00+08\"\r\n");
-
-                    POELE_SendString("4139 ?");
-
-                    POELE_SendStringCRLF("");
-                    POELE_SendOK();
-                }
-                else
-                {
-                    POELE_SendStringCRLF("");
-                    POELE_SendStringCRLF("+CMGR: 0,,0");
-                    POELE_SendOK();
-                }
-            }
-            else if (strcmp("AT+CMGS=\"+41793018256\"", str_POELE) == 0)
-            {
-                while (!(POELE_DataIsReceived()));
-                POELE_cmd(str_POELE);
-                POELE_SendStringCRLF("*CF+CMGS: 73");
-                POELE_SendOK();
-            }
+# 278 "mayen_01.c"
             else
             {
-                RS232_EmptyData();
+                Modem_write_cmd(str_POELE);
+
             }
 
             LATBbits.LATB4 = 1;
@@ -12792,7 +12733,7 @@ void main(void)
 
     while (1);
 }
-# 279 "mayen_01.c"
+# 299 "mayen_01.c"
 void __attribute__((picinterrupt(("")))) INTERRUPT_InterruptManager(void)
 {
 
@@ -12811,7 +12752,7 @@ void __attribute__((picinterrupt(("")))) INTERRUPT_InterruptManager(void)
         {
             Modem_Read();
         }
-# 307 "mayen_01.c"
+# 327 "mayen_01.c"
     }
 }
 
@@ -12857,14 +12798,14 @@ void PIC_Init(void)
     RX2DTPPS = 0x0B;
     RX1DTPPS = 0x16;
 }
-# 360 "mayen_01.c"
+# 380 "mayen_01.c"
 void Modem_BOOT(void)
 {
     do { LATCbits.LATC5 = 1; } while(0);
     _delay((unsigned long)((500)*(8000000/4000.0)));
     _delay((unsigned long)((500)*(8000000/4000.0)));
     do { LATCbits.LATC5 = 0; } while(0);
-    for(char time = 15; time !=0; time--)
+    for (char time = 15; time != 0; time--)
     {
         _delay((unsigned long)((500)*(8000000/4000.0)));
     }

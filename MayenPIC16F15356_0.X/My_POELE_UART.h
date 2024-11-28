@@ -15,7 +15,6 @@
 //----- Including libraries --
 #include <stdint.h>
 #include <stdbool.h>
-#include <xc.h> // include processor files - each processor file is guarded.  
 
 //***************MODEM DEFINITION***************
 //--- Define AT  CMD

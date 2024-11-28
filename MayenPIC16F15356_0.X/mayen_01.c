@@ -118,8 +118,8 @@ void main(void)
 
     PIC_Init(); //Initialise le PIC
     LCD_Init();
-    UART1_Init();
-    UART2_Init();
+    UART1_Init();  // Modem
+    UART2_Init();  // Poele
 
     INTERRUPT_GlobalInterruptEnable();
     INTERRUPT_PeripheralInterruptEnable();
@@ -169,6 +169,15 @@ void main(void)
             LCD_CursorPosition(2, 1);
             LCD_PrintString(str_modem); //indique que le pic est en fonctionement
             P2_VERTE = LED_ON;
+            if (strcmp("sms", str_modem) == 0)
+            {
+
+            }
+            else
+            {
+                POELE_SendStringCRLF(str_modem);
+            }
+            P2_VERTE = LED_OFF;
         }
 
         if (POELE_DataReady) // Poele Receive Buffer is full ('1')
@@ -176,22 +185,7 @@ void main(void)
             P2_ROUGE = LED_ON;
             POELE_cmd(str_POELE); // read data form poele
 
-            if (strcmp("AT", str_POELE) == 0)
-            {
-                POELE_SendStringCRLF("");
-                POELE_SendOK();
-            }
-            else if (strcmp("AT&F", str_POELE) == 0)
-            {
-                POELE_SendStringCRLF("");
-                POELE_SendOK();
-            }
-            else if (strcmp("ATE0", str_POELE) == 0)
-            {
-                POELE_SendString("ATE0");
-                POELE_SendOK();
-            }
-            else if (strcmp("AT+GMI", str_POELE) == 0)
+            if (strcmp("AT+GMI", str_POELE) == 0)
             {
                 POELE_SendStringCRLF("Cinterion");
                 POELE_SendOK();
@@ -201,64 +195,90 @@ void main(void)
                 POELE_SendStringCRLF("BGS2-W");
                 POELE_SendOK();
             }
-            else if (strcmp("AT+CNMI=0,0,0,0,1", str_POELE) == 0)
-            {
-                POELE_SendString("");
-                POELE_SendOK();
-            }
-            else if (strcmp("AT+CMGD=1", str_POELE) == 0)
-            {
-                POELE_SendStringCRLF("");
-                POELE_SendOK();
-            }
-            else if (strcmp("AT+CMGD=2", str_POELE) == 0)
-            {
-                POELE_SendStringCRLF("");
-                POELE_SendOK();
-            }
-            else if (strcmp("AT+CMGD=3", str_POELE) == 0)
-            {
-                POELE_SendStringCRLF("");
-                POELE_SendOK();
-            }
-            else if (strcmp("AT+CMGV=1", str_POELE) == 0)
-            {
-                POELE_SendStringCRLF("");
-                POELE_SendOK();
-            }
-            else if (strcmp("AT+CMGF=1", str_POELE) == 0)
-            {
-                POELE_SendStringCRLF("");
-                POELE_SendOK();
-            }
-            else if (strcmp("AT+CMGR=1", str_POELE) == 0)
-            {
-                if (message)
-                {
-                    POELE_SendString("\r\n+CMGR:0,\"REC UNREAD\",\"+41793018256\",,\"23/01/01,22:10:00+08\"\r\n");
-                    //UART2_Write(LF);
-                    POELE_SendString("4139 ?");
-                    //UART2_Write('\x1A');
-                    POELE_SendStringCRLF("");
-                    POELE_SendOK();
-                }
-                else
-                {
-                    POELE_SendStringCRLF("");
-                    POELE_SendStringCRLF("+CMGR: 0,,0");
-                    POELE_SendOK();
-                }
-            }
-            else if (strcmp("AT+CMGS=\"+41793018256\"", str_POELE) == 0)
-            {
-                while (!POELE_DataReady); //Attend le message
-                POELE_cmd(str_POELE);
-                POELE_SendStringCRLF("*CF+CMGS: 73");
-                POELE_SendOK();
-            }
+                //            else if (strcmp("AT", str_POELE) == 0)
+                //            {
+                //                POELE_SendStringCRLF("");
+                //                POELE_SendOK();
+                //            }
+                //            else if (strcmp("AT&F", str_POELE) == 0)
+                //            {
+                //                POELE_SendStringCRLF("");
+                //                POELE_SendOK();
+                //            }
+                //            else if (strcmp("ATE0", str_POELE) == 0)
+                //            {
+                //                POELE_SendString("ATE0");
+                //                POELE_SendOK();
+                //            }
+                //            else if (strcmp("AT+GMI", str_POELE) == 0)
+                //            {
+                //                POELE_SendStringCRLF("Cinterion");
+                //                POELE_SendOK();
+                //            }
+                //            else if (strcmp("AT+GMM", str_POELE) == 0)
+                //            {
+                //                POELE_SendStringCRLF("BGS2-W");
+                //                POELE_SendOK();
+                //            }
+                //            else if (strcmp("AT+CNMI=0,0,0,0,1", str_POELE) == 0)
+                //            {
+                //                POELE_SendString("");
+                //                POELE_SendOK();
+                //            }
+                //            else if (strcmp("AT+CMGD=1", str_POELE) == 0)
+                //            {
+                //                POELE_SendStringCRLF("");
+                //                POELE_SendOK();
+                //            }
+                //            else if (strcmp("AT+CMGD=2", str_POELE) == 0)
+                //            {
+                //                POELE_SendStringCRLF("");
+                //                POELE_SendOK();
+                //            }
+                //            else if (strcmp("AT+CMGD=3", str_POELE) == 0)
+                //            {
+                //                POELE_SendStringCRLF("");
+                //                POELE_SendOK();
+                //            }
+                //            else if (strcmp("AT+CMGV=1", str_POELE) == 0)
+                //            {
+                //                POELE_SendStringCRLF("");
+                //                POELE_SendOK();
+                //            }
+                //            else if (strcmp("AT+CMGF=1", str_POELE) == 0)
+                //            {
+                //                POELE_SendStringCRLF("");
+                //                POELE_SendOK();
+                //            }
+                //            else if (strcmp("AT+CMGR=1", str_POELE) == 0)
+                //            {
+                //                if (message)
+                //                {
+                //                    POELE_SendString("\r\n+CMGR:0,\"REC UNREAD\",\"+41793018256\",,\"23/01/01,22:10:00+08\"\r\n");
+                //                    //UART2_Write(LF);
+                //                    POELE_SendString("4139 ?");
+                //                    //UART2_Write('\x1A');
+                //                    POELE_SendStringCRLF("");
+                //                    POELE_SendOK();
+                //                }
+                //                else
+                //                {
+                //                    POELE_SendStringCRLF("");
+                //                    POELE_SendStringCRLF("+CMGR: 0,,0");
+                //                    POELE_SendOK();
+                //                }
+                //            }
+                //            else if (strcmp("AT+CMGS=\"+41793018256\"", str_POELE) == 0)
+                //            {
+                //                while (!POELE_DataReady); //Attend le message
+                //                POELE_cmd(str_POELE);
+                //                POELE_SendStringCRLF("*CF+CMGS: 73");
+                //                POELE_SendOK();
+                //            }
             else
             {
-                RS232_EmptyData();
+                Modem_write_cmd(str_POELE);
+
             }
 
             P2_ROUGE = LED_OFF;
@@ -363,11 +383,11 @@ void Modem_BOOT(void)
     __delay_ms(500);
     __delay_ms(500);
     POWERKEY_OFF();
-    for(char time = 15; time !=0; time--) // wait 10 second
+    for (char time = 15; time != 0; time--) // wait 10 second
     {
         __delay_ms(500);
     }
-        
+
 }
 //-------------------------------------------------------------------
 

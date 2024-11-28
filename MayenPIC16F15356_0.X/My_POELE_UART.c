@@ -9,6 +9,7 @@
  */
 
 #include <xc.h>
+
 #include "My_POELE_UART.h"
 
 //---------------------------------------------------------
@@ -84,7 +85,7 @@ void UART2_Init(void)
     RC2STAbits.CREN = 1;
 
     /*================== BAUDCTL: BAUD RATE CONTROL REGISTER =================*/
-    SP2BRG = 16; //115.2k baud rate 
+    SP2BRG = 16; //115.2k baud rate, 34->56k, 103->19.2k
 
     //BRG16: 16-bit Baud Rate Generator bit
     //      1 = 16-bit Baud Rate Generator is used
