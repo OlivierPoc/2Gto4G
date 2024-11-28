@@ -206,12 +206,7 @@ void Modem_Read(void)
             }
             position = 0;
         }
-        else if (data == LF) // si fin de transmission 
-        {
-            //            modem_str[modem_buffer_index][position] = '\0';
-            //            position=0; 
-        }
-        else
+        else if (data != LF) // si fin de transmission 
         {
             modem_str[modem_buffer_index][position] = data;
             position++;
@@ -259,7 +254,7 @@ void Modem_read_cmd(char *str)
 {
     uint8_t readPosition = 0;
 
-    while (modem_str[modem_read_buffer][readPosition] != '\0' && modem_str[modem_read_buffer][readPosition] != CR)
+    while ((modem_str[modem_read_buffer][readPosition] != '\0') && (modem_str[modem_read_buffer][readPosition] != CR))
     {
         //*str = read_modem[position];
         *str = modem_str[modem_read_buffer][readPosition];
