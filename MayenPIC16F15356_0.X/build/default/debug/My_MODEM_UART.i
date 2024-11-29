@@ -12698,12 +12698,7 @@ void Modem_Read(void)
             }
             position = 0;
         }
-        else if (data == 0x0A)
-        {
-
-
-        }
-        else
+        else if (data != 0x0A)
         {
             modem_str[modem_buffer_index][position] = data;
             position++;
@@ -12719,7 +12714,7 @@ void Modem_Read(void)
         modem_buffer_index = 0;
     }
 }
-# 238 "My_MODEM_UART.c"
+# 233 "My_MODEM_UART.c"
 void Modem_EmptyData(void)
 {
     PIE3bits.RC1IE = 0;
@@ -12732,12 +12727,12 @@ void Modem_EmptyData(void)
 
     PIE3bits.RC1IE = 1;
 }
-# 258 "My_MODEM_UART.c"
+# 253 "My_MODEM_UART.c"
 void Modem_read_cmd(char *str)
 {
     uint8_t readPosition = 0;
 
-    while (modem_str[modem_read_buffer][readPosition] != '\0' && modem_str[modem_read_buffer][readPosition] != 0x0D)
+    while ((modem_str[modem_read_buffer][readPosition] != '\0') && (modem_str[modem_read_buffer][readPosition] != 0x0D))
     {
 
         *str = modem_str[modem_read_buffer][readPosition];
@@ -12752,7 +12747,7 @@ void Modem_read_cmd(char *str)
     }
 
 }
-# 285 "My_MODEM_UART.c"
+# 280 "My_MODEM_UART.c"
 void Modem_write_cmd(char *str)
 {
     UART1_SendString(str);

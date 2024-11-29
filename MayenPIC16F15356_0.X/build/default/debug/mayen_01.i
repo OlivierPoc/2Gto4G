@@ -12669,7 +12669,7 @@ void main(void)
             ptr = "AT";
             Modem_write_cmd(ptr);
             LCD_CursorPosition(1, 1);
-            LCD_PrintString("S:");
+            LCD_PrintString("M:");
             LCD_PrintString(ptr);
 
             while (PORTCbits.RC1 == 0);
@@ -12691,6 +12691,7 @@ void main(void)
         {
             Modem_read_cmd(str_modem);
             LCD_CursorPosition(2, 1);
+            LCD_PrintString("M:");
             LCD_PrintString(str_modem);
             LATBbits.LATB5 = 0;
             if (strcmp("sms", str_modem) == 0)
@@ -12719,7 +12720,7 @@ void main(void)
                 POELE_SendStringCRLF("BGS2-W");
                 POELE_SendOK();
             }
-# 278 "mayen_01.c"
+# 279 "mayen_01.c"
             else
             {
                 Modem_write_cmd(str_POELE);
@@ -12733,7 +12734,7 @@ void main(void)
 
     while (1);
 }
-# 299 "mayen_01.c"
+# 300 "mayen_01.c"
 void __attribute__((picinterrupt(("")))) INTERRUPT_InterruptManager(void)
 {
 
@@ -12752,7 +12753,7 @@ void __attribute__((picinterrupt(("")))) INTERRUPT_InterruptManager(void)
         {
             Modem_Read();
         }
-# 327 "mayen_01.c"
+# 328 "mayen_01.c"
     }
 }
 
@@ -12798,7 +12799,7 @@ void PIC_Init(void)
     RX2DTPPS = 0x0B;
     RX1DTPPS = 0x16;
 }
-# 380 "mayen_01.c"
+# 381 "mayen_01.c"
 void Modem_BOOT(void)
 {
     do { LATCbits.LATC5 = 1; } while(0);

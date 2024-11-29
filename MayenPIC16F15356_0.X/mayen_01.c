@@ -120,11 +120,13 @@ void main(void)
     LCD_Init();
     UART1_Init();  // Modem
     UART2_Init();  // Poele
+    P2_ROUGE = LED_ON; // LED on
 
     INTERRUPT_GlobalInterruptEnable();
     INTERRUPT_PeripheralInterruptEnable();
 
     Modem_BOOT();
+    P2_ROUGE = LED_OFF; // LED on
     P2_VERTE = LED_ON; // LED on
     LCD_PrintString("Modem:ON"); //indique que le pic est en fonctionement
 
@@ -145,7 +147,7 @@ void main(void)
             ptr = "AT"; //AT+GMI Request Manufacturer Identification
             Modem_write_cmd(ptr);
             LCD_CursorPosition(1, 1);
-            LCD_PrintString("S:");
+            LCD_PrintString("M:");
             LCD_PrintString(ptr); //indique que le pic est en fonctionement
             //POELE_cmd(str_POELE);
             while (S1 == PRESS);
@@ -167,6 +169,7 @@ void main(void)
         {
             Modem_read_cmd(str_modem); // read data form modem
             LCD_CursorPosition(2, 1);
+            LCD_PrintString("M:");
             LCD_PrintString(str_modem); //indique que le pic est en fonctionement
             P2_VERTE = LED_ON;
             if (strcmp("sms", str_modem) == 0)

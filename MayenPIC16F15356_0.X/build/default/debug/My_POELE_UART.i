@@ -12468,7 +12468,6 @@ extern __bank0 __bit __timeout;
 # 28 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\xc.h" 2 3
 # 11 "My_POELE_UART.c" 2
 
-
 # 1 "./My_POELE_UART.h" 1
 # 17 "./My_POELE_UART.h"
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\stdbool.h" 1 3
@@ -12495,7 +12494,7 @@ void POELE_Read(void);
 void RS232_EmptyData(void);
 void POELE_cmd(char *str);
 void POELE_SendOK(void);
-# 13 "My_POELE_UART.c" 2
+# 12 "My_POELE_UART.c" 2
 
 
 
@@ -12523,7 +12522,7 @@ void UART2_Init(void)
 
 
     TX2STAbits.SYNC = 0;
-# 48 "My_POELE_UART.c"
+# 47 "My_POELE_UART.c"
     TX2STAbits.SENDB = 0;
 
 
@@ -12533,7 +12532,7 @@ void UART2_Init(void)
 
 
     TX2STAbits.BRGH = 1;
-# 65 "My_POELE_UART.c"
+# 64 "My_POELE_UART.c"
     TX2STAbits.TX9D = 0;
 
 
@@ -12574,27 +12573,27 @@ void UART2_Init(void)
 
     PIE3bits.RC2IE = 1;
 }
-# 113 "My_POELE_UART.c"
+# 112 "My_POELE_UART.c"
 void UART2_Write(uint8_t data)
 {
     while (PIR3bits.TX2IF == 0);
     TX2REG = data;
     while (TX2STAbits.TRMT == 0);
 }
-# 127 "My_POELE_UART.c"
+# 126 "My_POELE_UART.c"
 uint8_t UART2_Read()
 {
 
     return RC2REG;
 }
-# 140 "My_POELE_UART.c"
+# 139 "My_POELE_UART.c"
 _Bool POELE_DataIsReceived(void)
 {
 
     return cmdRS323Receive;
 
 }
-# 154 "My_POELE_UART.c"
+# 153 "My_POELE_UART.c"
 void POELE_SendStringCRLF(char *str)
 {
     while (*str != '\0')
@@ -12620,7 +12619,7 @@ void POELE_SendString(char *str)
         str++;
     }
 }
-# 187 "My_POELE_UART.c"
+# 186 "My_POELE_UART.c"
 void POELE_SendOK(void)
 {
     POELE_SendString("\r\nOK\r\n");
@@ -12631,7 +12630,7 @@ void POELE_SendOK(void)
 
 
 }
-# 205 "My_POELE_UART.c"
+# 204 "My_POELE_UART.c"
 void POELE_Read(void)
 {
     static uint8_t position = 0;
@@ -12660,7 +12659,7 @@ void POELE_Read(void)
         position = 0;
     }
 }
-# 241 "My_POELE_UART.c"
+# 240 "My_POELE_UART.c"
 void RS232_EmptyData(void)
 {
     PIE3bits.RC2IE = 0;
@@ -12670,7 +12669,7 @@ void RS232_EmptyData(void)
 
     PIE3bits.RC2IE = 1;
 }
-# 258 "My_POELE_UART.c"
+# 257 "My_POELE_UART.c"
 void POELE_cmd(char *str)
 {
     uint8_t position = 0;
