@@ -241,8 +241,7 @@ void POELE_EmptyData(void)
 {
     PIE3bits.RC2IE = 0;
 
-
-    for (uint8_t colonne = MAX_SIZE_MESSAGE_RS232; colonne != 0; colonne--)
+    for (uint8_t colonne = MAX_SIZE_MESSAGE; colonne != 0; colonne--)
     {
         read_RS232[colonne] = '\0';
     }
@@ -252,6 +251,8 @@ void POELE_EmptyData(void)
     PIE3bits.RC2IE = 1;
 }
 //---------------------------------------------------------
+
+
 
 //-------------------------------------------------------------------
 // Sous programme UART_SendString

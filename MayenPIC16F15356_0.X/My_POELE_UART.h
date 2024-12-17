@@ -21,8 +21,8 @@
 #define CR  0x0D     // '\r'  // Défini le carriage return en code ASCII (retour à la ligne)
 #define LF  0x0A     // '\n'  // Défini le Line Feed en code ASCII (saut de ligne)
 
-#define MAX_SIZE_MESSAGE_RS232 25
-static char read_RS232[MAX_SIZE_MESSAGE_RS232]; // data modem communication
+#define MAX_SIZE_MESSAGE 25
+static char read_RS232[MAX_SIZE_MESSAGE]; // data modem communication
 
 bool cmdRS323Receive;  // indication de la réception d'une commande
 

@@ -12664,7 +12664,6 @@ void POELE_EmptyData(void)
 {
     PIE3bits.RC2IE = 0;
 
-
     for (uint8_t colonne = 25; colonne != 0; colonne--)
     {
         read_RS232[colonne] = '\0';
@@ -12674,7 +12673,7 @@ void POELE_EmptyData(void)
 
     PIE3bits.RC2IE = 1;
 }
-# 262 "My_POELE_UART.c"
+# 263 "My_POELE_UART.c"
 void POELE_cmd(char *str)
 {
     uint8_t position = 0;

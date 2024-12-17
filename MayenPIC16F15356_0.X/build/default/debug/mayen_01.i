@@ -12593,6 +12593,7 @@ _Bool LCD_ReadBF_bool(void);
 # 49 "./mayen_01.h"
 void Modem_BOOT(void);
 void PIC_Init(void);
+void Empty_str(void);
 # 19 "mayen_01.c" 2
 
 
@@ -12636,9 +12637,9 @@ static _Bool message = 0;
 # 113 "mayen_01.c"
 void main(void)
 {
-    char str_modem[20] = {0};
+    char str_modem[25] = {0};
     char *ptr;
-    char str_POELE[20] = {0};
+    char str_POELE[25] = {0};
 
     PIC_Init();
     LCD_Init();
@@ -12694,6 +12695,10 @@ void main(void)
 
         if (Modem_DataIsReceived())
         {
+            for (uint8_t index = 25 - 1; index != 0; index--)
+            {
+                str_modem[index] = '\0';
+            }
             Modem_read_cmd(str_modem);
             LCD_CursorPosition(2, 1);
             LCD_PrintString("M:");
@@ -12714,6 +12719,10 @@ void main(void)
         if ((POELE_DataIsReceived()))
         {
             LATBbits.LATB4 = 0;
+            for (uint8_t index = 25 - 1; index != 0; index--)
+            {
+                str_POELE[index] = '\0';
+            }
             POELE_cmd(str_POELE);
 
             if (strcmp("AT+GMI", str_POELE) == 0)
@@ -12726,7 +12735,7 @@ void main(void)
                 POELE_SendStringCRLF("BGS2-W");
                 POELE_SendOK();
             }
-# 285 "mayen_01.c"
+# 238 "mayen_01.c"
             else
             {
                 Modem_write_cmd(str_POELE);
@@ -12739,7 +12748,7 @@ void main(void)
 
     while (1);
 }
-# 305 "mayen_01.c"
+# 258 "mayen_01.c"
 void __attribute__((picinterrupt(("")))) INTERRUPT_InterruptManager(void)
 {
 
@@ -12758,7 +12767,7 @@ void __attribute__((picinterrupt(("")))) INTERRUPT_InterruptManager(void)
         {
             Modem_Read();
         }
-# 333 "mayen_01.c"
+# 286 "mayen_01.c"
     }
 }
 
@@ -12804,7 +12813,7 @@ void PIC_Init(void)
     RX2DTPPS = 0x0B;
     RX1DTPPS = 0x16;
 }
-# 386 "mayen_01.c"
+# 339 "mayen_01.c"
 void Modem_BOOT(void)
 {
     do { LATCbits.LATC5 = 1; } while(0);
@@ -12815,5 +12824,10 @@ void Modem_BOOT(void)
     {
         _delay((unsigned long)((500)*(8000000/4000.0)));
     }
+
+}
+# 359 "mayen_01.c"
+void Empty_str(void)
+{
 
 }

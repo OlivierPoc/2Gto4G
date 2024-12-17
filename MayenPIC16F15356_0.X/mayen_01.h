@@ -48,6 +48,7 @@
 //----- Function Declarations -----------------------------
 void Modem_BOOT(void);
 void PIC_Init(void);
+void Empty_str(void);
 //----------------------------------------------------------
 
 

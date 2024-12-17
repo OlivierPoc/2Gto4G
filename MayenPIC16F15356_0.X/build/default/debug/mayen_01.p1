@@ -1338,29 +1338,29 @@ Version 4.0 HI-TECH Software Intermediate Code
 {
 [e :U _main ]
 [f ]
-[v F7545 `uc ~T0 @X0 -> 20 `i s ]
-[i F7545
+[v F7546 `uc ~T0 @X0 -> 25 `i s ]
+[i F7546
 :U ..
 "115
-[; ;mayen_01.c: 115:     char str_modem[20] = {0};
+[; ;mayen_01.c: 115:     char str_modem[25] = {0};
 -> -> 0 `i `uc
 ..
 ]
-[v _str_modem `uc ~T0 @X0 -> 20 `i a ]
-[e = _str_modem F7545 ]
+[v _str_modem `uc ~T0 @X0 -> 25 `i a ]
+[e = _str_modem F7546 ]
 "116
 [; ;mayen_01.c: 116:     char *ptr;
 [v _ptr `*uc ~T0 @X0 1 a ]
-[v F7548 `uc ~T0 @X0 -> 20 `i s ]
-[i F7548
+[v F7549 `uc ~T0 @X0 -> 25 `i s ]
+[i F7549
 :U ..
 "117
-[; ;mayen_01.c: 117:     char str_POELE[20] = {0};
+[; ;mayen_01.c: 117:     char str_POELE[25] = {0};
 -> -> 0 `i `uc
 ..
 ]
-[v _str_POELE `uc ~T0 @X0 -> 20 `i a ]
-[e = _str_POELE F7548 ]
+[v _str_POELE `uc ~T0 @X0 -> 25 `i a ]
+[e = _str_POELE F7549 ]
 "119
 [; ;mayen_01.c: 119:     PIC_Init();
 [e ( _PIC_Init ..  ]
@@ -1518,301 +1518,355 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;mayen_01.c: 172:         {
 {
 "173
-[; ;mayen_01.c: 173:             Modem_read_cmd(str_modem);
-[e ( _Modem_read_cmd (1 &U _str_modem ]
-"174
-[; ;mayen_01.c: 174:             LCD_CursorPosition(2, 1);
-[e ( _LCD_CursorPosition (2 , -> -> 2 `i `uc -> -> 1 `i `uc ]
-"175
-[; ;mayen_01.c: 175:             LCD_PrintString("M:");
-[e ( _LCD_PrintString (1 :s 8C ]
-"176
-[; ;mayen_01.c: 176:             LCD_PrintString(str_modem);
-[e ( _LCD_PrintString (1 &U _str_modem ]
-"177
-[; ;mayen_01.c: 177:             LATBbits.LATB5 = 0;
-[e = . . _LATBbits 0 5 -> -> 0 `i `uc ]
-"178
-[; ;mayen_01.c: 178:             if (strcmp("sms", str_modem) == 0)
-[e $ ! == ( _strcmp (2 , :s 9C -> &U _str_modem `*Cuc -> 0 `i 992  ]
-"179
-[; ;mayen_01.c: 179:             {
+[; ;mayen_01.c: 173:             for (uint8_t index = 25 - 1; index != 0; index--)
 {
-"181
-[; ;mayen_01.c: 181:             }
-}
+[v _index `uc ~T0 @X0 1 a ]
+[e = _index -> - -> 25 `i -> 1 `i `uc ]
+[e $ != -> _index `i -> 0 `i 992  ]
 [e $U 993  ]
-"182
-[; ;mayen_01.c: 182:             else
 [e :U 992 ]
+"174
+[; ;mayen_01.c: 174:             {
+{
+"175
+[; ;mayen_01.c: 175:                 str_modem[index] = '\0';
+[e = *U + &U _str_modem * -> _index `ux -> -> # *U &U _str_modem `ui `ux -> -> 0 `ui `uc ]
+"176
+[; ;mayen_01.c: 176:             }
+}
+[e -- _index -> -> 1 `i `uc ]
+[e $ != -> _index `i -> 0 `i 992  ]
+[e :U 993 ]
+}
+"177
+[; ;mayen_01.c: 177:             Modem_read_cmd(str_modem);
+[e ( _Modem_read_cmd (1 &U _str_modem ]
+"178
+[; ;mayen_01.c: 178:             LCD_CursorPosition(2, 1);
+[e ( _LCD_CursorPosition (2 , -> -> 2 `i `uc -> -> 1 `i `uc ]
+"179
+[; ;mayen_01.c: 179:             LCD_PrintString("M:");
+[e ( _LCD_PrintString (1 :s 8C ]
+"180
+[; ;mayen_01.c: 180:             LCD_PrintString(str_modem);
+[e ( _LCD_PrintString (1 &U _str_modem ]
+"181
+[; ;mayen_01.c: 181:             LATBbits.LATB5 = 0;
+[e = . . _LATBbits 0 5 -> -> 0 `i `uc ]
+"182
+[; ;mayen_01.c: 182:             if (strcmp("sms", str_modem) == 0)
+[e $ ! == ( _strcmp (2 , :s 9C -> &U _str_modem `*Cuc -> 0 `i 995  ]
 "183
 [; ;mayen_01.c: 183:             {
 {
-"184
-[; ;mayen_01.c: 184:                 POELE_SendStringCRLF(str_modem);
-[e ( _POELE_SendStringCRLF (1 &U _str_modem ]
 "185
-[; ;mayen_01.c: 185:                 POELE_SendOK();
-[e ( _POELE_SendOK ..  ]
-"186
-[; ;mayen_01.c: 186:             }
-}
-[e :U 993 ]
-"187
-[; ;mayen_01.c: 187:             LATBbits.LATB5 = 1;
-[e = . . _LATBbits 0 5 -> -> 1 `i `uc ]
-"188
-[; ;mayen_01.c: 188:         }
-}
-[e :U 991 ]
-"190
-[; ;mayen_01.c: 190:         if ((POELE_DataIsReceived()))
-[e $ ! != -> ( _POELE_DataIsReceived ..  `i -> 0 `i 994  ]
-"191
-[; ;mayen_01.c: 191:         {
-{
-"192
-[; ;mayen_01.c: 192:             LATBbits.LATB4 = 0;
-[e = . . _LATBbits 0 4 -> -> 0 `i `uc ]
-"193
-[; ;mayen_01.c: 193:             POELE_cmd(str_POELE);
-[e ( _POELE_cmd (1 &U _str_POELE ]
-"195
-[; ;mayen_01.c: 195:             if (strcmp("AT+GMI", str_POELE) == 0)
-[e $ ! == ( _strcmp (2 , :s 10C -> &U _str_POELE `*Cuc -> 0 `i 995  ]
-"196
-[; ;mayen_01.c: 196:             {
-{
-"197
-[; ;mayen_01.c: 197:                 POELE_SendStringCRLF("Cinterion");
-[e ( _POELE_SendStringCRLF (1 :s 11C ]
-"198
-[; ;mayen_01.c: 198:                 POELE_SendOK();
-[e ( _POELE_SendOK ..  ]
-"199
-[; ;mayen_01.c: 199:             }
+[; ;mayen_01.c: 185:             }
 }
 [e $U 996  ]
-"200
-[; ;mayen_01.c: 200:             else if (strcmp("AT+GMM", str_POELE) == 0)
+"186
+[; ;mayen_01.c: 186:             else
 [e :U 995 ]
-[e $ ! == ( _strcmp (2 , :s 12C -> &U _str_POELE `*Cuc -> 0 `i 997  ]
-"201
-[; ;mayen_01.c: 201:             {
+"187
+[; ;mayen_01.c: 187:             {
 {
-"202
-[; ;mayen_01.c: 202:                 POELE_SendStringCRLF("BGS2-W");
-[e ( _POELE_SendStringCRLF (1 :s 13C ]
-"203
-[; ;mayen_01.c: 203:                 POELE_SendOK();
+"188
+[; ;mayen_01.c: 188:                 POELE_SendStringCRLF(str_modem);
+[e ( _POELE_SendStringCRLF (1 &U _str_modem ]
+"189
+[; ;mayen_01.c: 189:                 POELE_SendOK();
 [e ( _POELE_SendOK ..  ]
-"204
-[; ;mayen_01.c: 204:             }
+"190
+[; ;mayen_01.c: 190:             }
 }
-[e $U 998  ]
-"285
-[; ;mayen_01.c: 285:             else
-[e :U 997 ]
-"286
-[; ;mayen_01.c: 286:             {
-{
-"287
-[; ;mayen_01.c: 287:                 Modem_write_cmd(str_POELE);
-[e ( _Modem_write_cmd (1 &U _str_POELE ]
-"288
-[; ;mayen_01.c: 288:             }
-}
-[e :U 998 ]
 [e :U 996 ]
-"290
-[; ;mayen_01.c: 290:             LATBbits.LATB4 = 1;
-[e = . . _LATBbits 0 4 -> -> 1 `i `uc ]
-"291
-[; ;mayen_01.c: 291:         }
+"191
+[; ;mayen_01.c: 191:             LATBbits.LATB5 = 1;
+[e = . . _LATBbits 0 5 -> -> 1 `i `uc ]
+"192
+[; ;mayen_01.c: 192:         }
 }
-[e :U 994 ]
-"292
-[; ;mayen_01.c: 292:     }
+[e :U 991 ]
+"194
+[; ;mayen_01.c: 194:         if ((POELE_DataIsReceived()))
+[e $ ! != -> ( _POELE_DataIsReceived ..  `i -> 0 `i 997  ]
+"195
+[; ;mayen_01.c: 195:         {
+{
+"196
+[; ;mayen_01.c: 196:             LATBbits.LATB4 = 0;
+[e = . . _LATBbits 0 4 -> -> 0 `i `uc ]
+"197
+[; ;mayen_01.c: 197:             for (uint8_t index = 25 - 1; index != 0; index--)
+{
+[v _index `uc ~T0 @X0 1 a ]
+[e = _index -> - -> 25 `i -> 1 `i `uc ]
+[e $ != -> _index `i -> 0 `i 998  ]
+[e $U 999  ]
+[e :U 998 ]
+"198
+[; ;mayen_01.c: 198:             {
+{
+"199
+[; ;mayen_01.c: 199:                 str_POELE[index] = '\0';
+[e = *U + &U _str_POELE * -> _index `ux -> -> # *U &U _str_POELE `ui `ux -> -> 0 `ui `uc ]
+"200
+[; ;mayen_01.c: 200:             }
+}
+[e -- _index -> -> 1 `i `uc ]
+[e $ != -> _index `i -> 0 `i 998  ]
+[e :U 999 ]
+}
+"201
+[; ;mayen_01.c: 201:             POELE_cmd(str_POELE);
+[e ( _POELE_cmd (1 &U _str_POELE ]
+"203
+[; ;mayen_01.c: 203:             if (strcmp("AT+GMI", str_POELE) == 0)
+[e $ ! == ( _strcmp (2 , :s 10C -> &U _str_POELE `*Cuc -> 0 `i 1001  ]
+"204
+[; ;mayen_01.c: 204:             {
+{
+"205
+[; ;mayen_01.c: 205:                 POELE_SendStringCRLF("Cinterion");
+[e ( _POELE_SendStringCRLF (1 :s 11C ]
+"206
+[; ;mayen_01.c: 206:                 POELE_SendOK();
+[e ( _POELE_SendOK ..  ]
+"207
+[; ;mayen_01.c: 207:             }
+}
+[e $U 1002  ]
+"208
+[; ;mayen_01.c: 208:             else if (strcmp("AT+GMM", str_POELE) == 0)
+[e :U 1001 ]
+[e $ ! == ( _strcmp (2 , :s 12C -> &U _str_POELE `*Cuc -> 0 `i 1003  ]
+"209
+[; ;mayen_01.c: 209:             {
+{
+"210
+[; ;mayen_01.c: 210:                 POELE_SendStringCRLF("BGS2-W");
+[e ( _POELE_SendStringCRLF (1 :s 13C ]
+"211
+[; ;mayen_01.c: 211:                 POELE_SendOK();
+[e ( _POELE_SendOK ..  ]
+"212
+[; ;mayen_01.c: 212:             }
+}
+[e $U 1004  ]
+"238
+[; ;mayen_01.c: 238:             else
+[e :U 1003 ]
+"239
+[; ;mayen_01.c: 239:             {
+{
+"240
+[; ;mayen_01.c: 240:                 Modem_write_cmd(str_POELE);
+[e ( _Modem_write_cmd (1 &U _str_POELE ]
+"241
+[; ;mayen_01.c: 241:             }
+}
+[e :U 1004 ]
+[e :U 1002 ]
+"243
+[; ;mayen_01.c: 243:             LATBbits.LATB4 = 1;
+[e = . . _LATBbits 0 4 -> -> 1 `i `uc ]
+"244
+[; ;mayen_01.c: 244:         }
+}
+[e :U 997 ]
+"245
+[; ;mayen_01.c: 245:     }
 }
 [e $ != -> 1 `i -> 0 `i 978  ]
 [e :U 977 ]
-"295
-[; ;mayen_01.c: 295:     while (1);
-[e :U 1000 ]
-[e :U 999 ]
-[e $U 1000  ]
-[e :U 1001 ]
-"296
-[; ;mayen_01.c: 296: }
+"248
+[; ;mayen_01.c: 248:     while (1);
+[e :U 1006 ]
+[e :U 1005 ]
+[e $U 1006  ]
+[e :U 1007 ]
+"249
+[; ;mayen_01.c: 249: }
 [e :UE 975 ]
 }
 [v $root$_INTERRUPT_InterruptManager `(v ~T0 @X0 0 e ]
-"305
-[; ;mayen_01.c: 305: void __attribute__((picinterrupt(("")))) INTERRUPT_InterruptManager(void)
+"258
+[; ;mayen_01.c: 258: void __attribute__((picinterrupt(("")))) INTERRUPT_InterruptManager(void)
 [v _INTERRUPT_InterruptManager `(v ~T1 @X0 1 ef ]
-"306
-[; ;mayen_01.c: 306: {
+"259
+[; ;mayen_01.c: 259: {
 {
 [e :U _INTERRUPT_InterruptManager ]
 [f ]
-"308
-[; ;mayen_01.c: 308:     if (INTCONbits.PEIE == 1)
-[e $ ! == -> . . _INTCONbits 0 2 `i -> 1 `i 1003  ]
-"309
-[; ;mayen_01.c: 309:     {
+"261
+[; ;mayen_01.c: 261:     if (INTCONbits.PEIE == 1)
+[e $ ! == -> . . _INTCONbits 0 2 `i -> 1 `i 1009  ]
+"262
+[; ;mayen_01.c: 262:     {
 {
-"310
-[; ;mayen_01.c: 310:         if (PIE3bits.RC2IE == 1 && PIR3bits.RC2IF == 1)
-[e $ ! && == -> . . _PIE3bits 0 7 `i -> 1 `i == -> . . _PIR3bits 0 7 `i -> 1 `i 1004  ]
-"311
-[; ;mayen_01.c: 311:         {
+"263
+[; ;mayen_01.c: 263:         if (PIE3bits.RC2IE == 1 && PIR3bits.RC2IF == 1)
+[e $ ! && == -> . . _PIE3bits 0 7 `i -> 1 `i == -> . . _PIR3bits 0 7 `i -> 1 `i 1010  ]
+"264
+[; ;mayen_01.c: 264:         {
 {
-"312
-[; ;mayen_01.c: 312:             POELE_Read();
+"265
+[; ;mayen_01.c: 265:             POELE_Read();
 [e ( _POELE_Read ..  ]
-"313
-[; ;mayen_01.c: 313:         }
+"266
+[; ;mayen_01.c: 266:         }
 }
-[e :U 1004 ]
-"319
-[; ;mayen_01.c: 319:         if (PIE3bits.RC1IE == 1 && PIR3bits.RC1IF == 1)
-[e $ ! && == -> . . _PIE3bits 0 5 `i -> 1 `i == -> . . _PIR3bits 0 5 `i -> 1 `i 1005  ]
-"320
-[; ;mayen_01.c: 320:         {
+[e :U 1010 ]
+"272
+[; ;mayen_01.c: 272:         if (PIE3bits.RC1IE == 1 && PIR3bits.RC1IF == 1)
+[e $ ! && == -> . . _PIE3bits 0 5 `i -> 1 `i == -> . . _PIR3bits 0 5 `i -> 1 `i 1011  ]
+"273
+[; ;mayen_01.c: 273:         {
 {
-"321
-[; ;mayen_01.c: 321:             Modem_Read();
+"274
+[; ;mayen_01.c: 274:             Modem_Read();
 [e ( _Modem_Read ..  ]
-"322
-[; ;mayen_01.c: 322:         }
+"275
+[; ;mayen_01.c: 275:         }
 }
-[e :U 1005 ]
-"333
-[; ;mayen_01.c: 333:     }
+[e :U 1011 ]
+"286
+[; ;mayen_01.c: 286:     }
 }
-[e :U 1003 ]
-"334
-[; ;mayen_01.c: 334: }
-[e :UE 1002 ]
+[e :U 1009 ]
+"287
+[; ;mayen_01.c: 287: }
+[e :UE 1008 ]
 }
-"342
-[; ;mayen_01.c: 342: void PIC_Init(void)
+"295
+[; ;mayen_01.c: 295: void PIC_Init(void)
 [v _PIC_Init `(v ~T0 @X0 1 ef ]
-"343
-[; ;mayen_01.c: 343: {
+"296
+[; ;mayen_01.c: 296: {
 {
 [e :U _PIC_Init ]
 [f ]
-"348
-[; ;mayen_01.c: 348:     OSCCON1 = 0x60;
+"301
+[; ;mayen_01.c: 301:     OSCCON1 = 0x60;
 [e = _OSCCON1 -> -> 96 `i `uc ]
-"349
-[; ;mayen_01.c: 349:     OSCCON1bits.NOSC = 0b110;
+"302
+[; ;mayen_01.c: 302:     OSCCON1bits.NOSC = 0b110;
 [e = . . _OSCCON1bits 0 1 -> -> 6 `i `uc ]
-"352
-[; ;mayen_01.c: 352:     OSCCON3 = 0x00;
+"305
+[; ;mayen_01.c: 305:     OSCCON3 = 0x00;
 [e = _OSCCON3 -> -> 0 `i `uc ]
-"354
-[; ;mayen_01.c: 354:     OSCEN = 0x00;
+"307
+[; ;mayen_01.c: 307:     OSCEN = 0x00;
 [e = _OSCEN -> -> 0 `i `uc ]
-"356
-[; ;mayen_01.c: 356:     OSCFRQ = 0x03;
+"309
+[; ;mayen_01.c: 309:     OSCFRQ = 0x03;
 [e = _OSCFRQ -> -> 3 `i `uc ]
-"359
-[; ;mayen_01.c: 359:     ANSELA = 0;
+"312
+[; ;mayen_01.c: 312:     ANSELA = 0;
 [e = _ANSELA -> -> 0 `i `uc ]
-"360
-[; ;mayen_01.c: 360:     ANSELB = 0;
+"313
+[; ;mayen_01.c: 313:     ANSELB = 0;
 [e = _ANSELB -> -> 0 `i `uc ]
-"361
-[; ;mayen_01.c: 361:     ANSELC = 0;
+"314
+[; ;mayen_01.c: 314:     ANSELC = 0;
 [e = _ANSELC -> -> 0 `i `uc ]
-"364
-[; ;mayen_01.c: 364:     LATA = 0b11111111;
+"317
+[; ;mayen_01.c: 317:     LATA = 0b11111111;
 [e = _LATA -> -> 255 `i `uc ]
-"365
-[; ;mayen_01.c: 365:     LATB = 0b00101111;
+"318
+[; ;mayen_01.c: 318:     LATB = 0b00101111;
 [e = _LATB -> -> 47 `i `uc ]
-"366
-[; ;mayen_01.c: 366:     LATC = 0b00000000;
+"319
+[; ;mayen_01.c: 319:     LATC = 0b00000000;
 [e = _LATC -> -> 0 `i `uc ]
-"369
-[; ;mayen_01.c: 369:     TRISA = 0b00000000;
+"322
+[; ;mayen_01.c: 322:     TRISA = 0b00000000;
 [e = _TRISA -> -> 0 `i `uc ]
-"370
-[; ;mayen_01.c: 370:     TRISB = 0b11001000;
+"323
+[; ;mayen_01.c: 323:     TRISB = 0b11001000;
 [e = _TRISB -> -> 200 `i `uc ]
-"371
-[; ;mayen_01.c: 371:     TRISC = 0b01000111;
+"324
+[; ;mayen_01.c: 324:     TRISC = 0b01000111;
 [e = _TRISC -> -> 71 `i `uc ]
-"373
-[; ;mayen_01.c: 373:     RB2PPS = 0x11;
+"326
+[; ;mayen_01.c: 326:     RB2PPS = 0x11;
 [e = _RB2PPS -> -> 17 `i `uc ]
-"374
-[; ;mayen_01.c: 374:     RC7PPS = 0x0F;
+"327
+[; ;mayen_01.c: 327:     RC7PPS = 0x0F;
 [e = _RC7PPS -> -> 15 `i `uc ]
-"375
-[; ;mayen_01.c: 375:     RX2DTPPS = 0x0B;
+"328
+[; ;mayen_01.c: 328:     RX2DTPPS = 0x0B;
 [e = _RX2DTPPS -> -> 11 `i `uc ]
-"376
-[; ;mayen_01.c: 376:     RX1DTPPS = 0x16;
+"329
+[; ;mayen_01.c: 329:     RX1DTPPS = 0x16;
 [e = _RX1DTPPS -> -> 22 `i `uc ]
-"377
-[; ;mayen_01.c: 377: }
-[e :UE 1006 ]
+"330
+[; ;mayen_01.c: 330: }
+[e :UE 1012 ]
 }
-"386
-[; ;mayen_01.c: 386: void Modem_BOOT(void)
+"339
+[; ;mayen_01.c: 339: void Modem_BOOT(void)
 [v _Modem_BOOT `(v ~T0 @X0 1 ef ]
-"387
-[; ;mayen_01.c: 387: {
+"340
+[; ;mayen_01.c: 340: {
 {
 [e :U _Modem_BOOT ]
 [f ]
-"388
-[; ;mayen_01.c: 388:     do { LATCbits.LATC5 = 1; } while(0);
-[e :U 1010 ]
+"341
+[; ;mayen_01.c: 341:     do { LATCbits.LATC5 = 1; } while(0);
+[e :U 1016 ]
 {
 [e = . . _LATCbits 0 5 -> -> 1 `i `uc ]
 }
-[e :U 1009 ]
-"389
-[; ;mayen_01.c: 389:     _delay((unsigned long)((500)*(8000000/4000.0)));
+[e :U 1015 ]
+"342
+[; ;mayen_01.c: 342:     _delay((unsigned long)((500)*(8000000/4000.0)));
 [e ( __delay (1 -> * -> -> 500 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-"390
-[; ;mayen_01.c: 390:     _delay((unsigned long)((500)*(8000000/4000.0)));
+"343
+[; ;mayen_01.c: 343:     _delay((unsigned long)((500)*(8000000/4000.0)));
 [e ( __delay (1 -> * -> -> 500 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-"391
-[; ;mayen_01.c: 391:     do { LATCbits.LATC5 = 0; } while(0);
-[e :U 1013 ]
+"344
+[; ;mayen_01.c: 344:     do { LATCbits.LATC5 = 0; } while(0);
+[e :U 1019 ]
 {
 [e = . . _LATCbits 0 5 -> -> 0 `i `uc ]
 }
-[e :U 1012 ]
-"392
-[; ;mayen_01.c: 392:     for (char time = 15; time != 0; time--)
+[e :U 1018 ]
+"345
+[; ;mayen_01.c: 345:     for (char time = 15; time != 0; time--)
 {
 [v _time `uc ~T0 @X0 1 a ]
 [e = _time -> -> 15 `i `uc ]
-[e $ != -> _time `i -> 0 `i 1014  ]
-[e $U 1015  ]
-[e :U 1014 ]
-"393
-[; ;mayen_01.c: 393:     {
+[e $ != -> _time `i -> 0 `i 1020  ]
+[e $U 1021  ]
+[e :U 1020 ]
+"346
+[; ;mayen_01.c: 346:     {
 {
-"394
-[; ;mayen_01.c: 394:         _delay((unsigned long)((500)*(8000000/4000.0)));
+"347
+[; ;mayen_01.c: 347:         _delay((unsigned long)((500)*(8000000/4000.0)));
 [e ( __delay (1 -> * -> -> 500 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
-"395
-[; ;mayen_01.c: 395:     }
+"348
+[; ;mayen_01.c: 348:     }
 }
 [e -- _time -> -> 1 `i `uc ]
-[e $ != -> _time `i -> 0 `i 1014  ]
-[e :U 1015 ]
+[e $ != -> _time `i -> 0 `i 1020  ]
+[e :U 1021 ]
 }
-"397
-[; ;mayen_01.c: 397: }
-[e :UE 1007 ]
+"350
+[; ;mayen_01.c: 350: }
+[e :UE 1013 ]
+}
+"359
+[; ;mayen_01.c: 359: void Empty_str(void)
+[v _Empty_str `(v ~T0 @X0 1 ef ]
+"360
+[; ;mayen_01.c: 360: {
+{
+[e :U _Empty_str ]
+[f ]
+"362
+[; ;mayen_01.c: 362: }
+[e :UE 1023 ]
 }
 [a 9C 115 109 115 0 ]
 [a 11C 67 105 110 116 101 114 105 111 110 0 ]

@@ -112,9 +112,9 @@ static bool message = false; // use to debug
 //===== Main Function Implementation ======================
 void main(void)
 {
-    char str_modem[20] = {0};
+    char str_modem[MAX_SIZE_MESSAGE] = {0};
     char *ptr;
-    char str_POELE[20] = {0};
+    char str_POELE[MAX_SIZE_MESSAGE] = {0};
 
     PIC_Init(); //Initialise le PIC
     LCD_Init();
@@ -170,6 +170,10 @@ void main(void)
 
         if (Modem_DataIsReceived()) // Modem Receive Buffer is full ('1')
         {
+            for (uint8_t index = MAX_SIZE_MESSAGE - 1; index != 0; index--)
+            {
+                str_modem[index] = '\0';
+            }
             Modem_read_cmd(str_modem); // read data form modem
             LCD_CursorPosition(2, 1);
             LCD_PrintString("M:");
@@ -190,6 +194,10 @@ void main(void)
         if (POELE_DataReady) // Poele Receive Buffer is full ('1')
         {
             P2_ROUGE = LED_ON;
+            for (uint8_t index = MAX_SIZE_MESSAGE - 1; index != 0; index--)
+            {
+                str_POELE[index] = '\0';
+            }
             POELE_cmd(str_POELE); // read data form poele
 
             if (strcmp("AT+GMI", str_POELE) == 0)
@@ -202,61 +210,6 @@ void main(void)
                 POELE_SendStringCRLF("BGS2-W");
                 POELE_SendOK();
             }
-                //            else if (strcmp("AT", str_POELE) == 0)
-                //            {
-                //                POELE_SendStringCRLF("");
-                //                POELE_SendOK();
-                //            }
-                //            else if (strcmp("AT&F", str_POELE) == 0)
-                //            {
-                //                POELE_SendStringCRLF("");
-                //                POELE_SendOK();
-                //            }
-                //            else if (strcmp("ATE0", str_POELE) == 0)
-                //            {
-                //                POELE_SendString("ATE0");
-                //                POELE_SendOK();
-                //            }
-                //            else if (strcmp("AT+GMI", str_POELE) == 0)
-                //            {
-                //                POELE_SendStringCRLF("Cinterion");
-                //                POELE_SendOK();
-                //            }
-                //            else if (strcmp("AT+GMM", str_POELE) == 0)
-                //            {
-                //                POELE_SendStringCRLF("BGS2-W");
-                //                POELE_SendOK();
-                //            }
-                //            else if (strcmp("AT+CNMI=0,0,0,0,1", str_POELE) == 0)
-                //            {
-                //                POELE_SendString("");
-                //                POELE_SendOK();
-                //            }
-                //            else if (strcmp("AT+CMGD=1", str_POELE) == 0)
-                //            {
-                //                POELE_SendStringCRLF("");
-                //                POELE_SendOK();
-                //            }
-                //            else if (strcmp("AT+CMGD=2", str_POELE) == 0)
-                //            {
-                //                POELE_SendStringCRLF("");
-                //                POELE_SendOK();
-                //            }
-                //            else if (strcmp("AT+CMGD=3", str_POELE) == 0)
-                //            {
-                //                POELE_SendStringCRLF("");
-                //                POELE_SendOK();
-                //            }
-                //            else if (strcmp("AT+CMGV=1", str_POELE) == 0)
-                //            {
-                //                POELE_SendStringCRLF("");
-                //                POELE_SendOK();
-                //            }
-                //            else if (strcmp("AT+CMGF=1", str_POELE) == 0)
-                //            {
-                //                POELE_SendStringCRLF("");
-                //                POELE_SendOK();
-                //            }
                 //            else if (strcmp("AT+CMGR=1", str_POELE) == 0)
                 //            {
                 //                if (message)
@@ -397,4 +350,15 @@ void Modem_BOOT(void)
 }
 //-------------------------------------------------------------------
 
+//---------------------------------------------------------
+// Sous programme EmptyReceiver
+// Auteur: POC
+// Desc.: vide la buffer de reception
+// Ver. Date: V00 20170604 Création (YYYYMMDD)	
+//---------------------------------------------------------
+void Empty_str(void)
+{
+
+}
+//---------------------------------------------------------
 //================== END Of File ======================================
