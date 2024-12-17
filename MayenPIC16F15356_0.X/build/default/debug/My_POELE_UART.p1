@@ -58,8 +58,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;C:/Users/pochono/.mchp_packs/Microchip/PIC16F1xxxx_DFP/1.25.389/xc8\pic\include\proc\pic16f15356.h: 12673: extern volatile BAUD2CONbits_t BAUD2CONbits __attribute__((address(0xA1F)));
 [v _BAUD2CONbits `VS605 ~T0 @X0 0 e@2591 ]
 "43 ./My_POELE_UART.h
-[; ;./My_POELE_UART.h: 43: void RS232_EmptyData(void);
-[v _RS232_EmptyData `(v ~T0 @X0 0 ef ]
+[; ;./My_POELE_UART.h: 43: void POELE_EmptyData(void);
+[v _POELE_EmptyData `(v ~T0 @X0 0 ef ]
 "9118 C:/Users/pochono/.mchp_packs/Microchip/PIC16F1xxxx_DFP/1.25.389/xc8\pic\include\proc\pic16f15356.h
 [; ;C:/Users/pochono/.mchp_packs/Microchip/PIC16F1xxxx_DFP/1.25.389/xc8\pic\include\proc\pic16f15356.h: 9118:     struct {
 [s S425 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -1175,8 +1175,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;My_POELE_UART.c: 97:     BAUD2CONbits.SCKP = 0;
 [e = . . _BAUD2CONbits 0 4 -> -> 0 `i `uc ]
 "99
-[; ;My_POELE_UART.c: 99:     RS232_EmptyData();
-[e ( _RS232_EmptyData ..  ]
+[; ;My_POELE_UART.c: 99:     POELE_EmptyData();
+[e ( _POELE_EmptyData ..  ]
 "102
 [; ;My_POELE_UART.c: 102:     PIE3bits.RC2IE = 1;
 [e = . . _PIE3bits 0 7 -> -> 1 `i `uc ]
@@ -1438,75 +1438,99 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :UE 993 ]
 }
 "240
-[; ;My_POELE_UART.c: 240: void RS232_EmptyData(void)
-[v _RS232_EmptyData `(v ~T0 @X0 1 ef ]
+[; ;My_POELE_UART.c: 240: void POELE_EmptyData(void)
+[v _POELE_EmptyData `(v ~T0 @X0 1 ef ]
 "241
 [; ;My_POELE_UART.c: 241: {
 {
-[e :U _RS232_EmptyData ]
+[e :U _POELE_EmptyData ]
 [f ]
 "242
 [; ;My_POELE_UART.c: 242:     PIE3bits.RC2IE = 0;
 [e = . . _PIE3bits 0 7 -> -> 0 `i `uc ]
-"244
-[; ;My_POELE_UART.c: 244:     read_RS232[0] = '\0';
-[e = *U + &U _read_RS232 * -> -> -> 0 `i `ui `ux -> -> # *U &U _read_RS232 `ui `ux -> -> 0 `ui `uc ]
 "245
-[; ;My_POELE_UART.c: 245:     cmdRS323Receive = 0;
-[e = _cmdRS323Receive -> -> 0 `i `a ]
+[; ;My_POELE_UART.c: 245:     for (uint8_t colonne = 25; colonne != 0; colonne--)
+{
+[v _colonne `uc ~T0 @X0 1 a ]
+[e = _colonne -> -> 25 `i `uc ]
+[e $ != -> _colonne `i -> 0 `i 1000  ]
+[e $U 1001  ]
+[e :U 1000 ]
+"246
+[; ;My_POELE_UART.c: 246:     {
+{
 "247
-[; ;My_POELE_UART.c: 247:     PIE3bits.RC2IE = 1;
-[e = . . _PIE3bits 0 7 -> -> 1 `i `uc ]
+[; ;My_POELE_UART.c: 247:         read_RS232[colonne] = '\0';
+[e = *U + &U _read_RS232 * -> _colonne `ux -> -> # *U &U _read_RS232 `ui `ux -> -> 0 `ui `uc ]
 "248
-[; ;My_POELE_UART.c: 248: }
+[; ;My_POELE_UART.c: 248:     }
+}
+[e -- _colonne -> -> 1 `i `uc ]
+[e $ != -> _colonne `i -> 0 `i 1000  ]
+[e :U 1001 ]
+}
+"250
+[; ;My_POELE_UART.c: 250:     cmdRS323Receive = 0;
+[e = _cmdRS323Receive -> -> 0 `i `a ]
+"252
+[; ;My_POELE_UART.c: 252:     PIE3bits.RC2IE = 1;
+[e = . . _PIE3bits 0 7 -> -> 1 `i `uc ]
+"253
+[; ;My_POELE_UART.c: 253: }
 [e :UE 999 ]
 }
-"257
-[; ;My_POELE_UART.c: 257: void POELE_cmd(char *str)
+"262
+[; ;My_POELE_UART.c: 262: void POELE_cmd(char *str)
 [v _POELE_cmd `(v ~T0 @X0 1 ef1`*uc ]
-"258
-[; ;My_POELE_UART.c: 258: {
+"263
+[; ;My_POELE_UART.c: 263: {
 {
 [e :U _POELE_cmd ]
-"257
-[; ;My_POELE_UART.c: 257: void POELE_cmd(char *str)
+"262
+[; ;My_POELE_UART.c: 262: void POELE_cmd(char *str)
 [v _str `*uc ~T0 @X0 1 r1 ]
-"258
-[; ;My_POELE_UART.c: 258: {
+"263
+[; ;My_POELE_UART.c: 263: {
 [f ]
-"259
-[; ;My_POELE_UART.c: 259:     uint8_t position = 0;
+"264
+[; ;My_POELE_UART.c: 264:     uint8_t position = 0;
 [v _position `uc ~T0 @X0 1 a ]
 [e = _position -> -> 0 `i `uc ]
-"261
-[; ;My_POELE_UART.c: 261:     while (read_RS232[position] != '\0')
-[e $U 1001  ]
-[e :U 1002 ]
-"262
-[; ;My_POELE_UART.c: 262:     {
-{
-"263
-[; ;My_POELE_UART.c: 263:         *str = read_RS232[position];
-[e = *U _str *U + &U _read_RS232 * -> _position `ux -> -> # *U &U _read_RS232 `ui `ux ]
-"264
-[; ;My_POELE_UART.c: 264:         str++;
-[e ++ _str * -> -> 1 `i `x -> -> # *U _str `i `x ]
-"265
-[; ;My_POELE_UART.c: 265:         position++;
-[e ++ _position -> -> 1 `i `uc ]
 "266
-[; ;My_POELE_UART.c: 266:     }
-}
-[e :U 1001 ]
-"261
-[; ;My_POELE_UART.c: 261:     while (read_RS232[position] != '\0')
-[e $ != -> *U + &U _read_RS232 * -> _position `ux -> -> # *U &U _read_RS232 `ui `ux `ui -> 0 `ui 1002  ]
-[e :U 1003 ]
+[; ;My_POELE_UART.c: 266:     while (read_RS232[position] != '\0')
+[e $U 1004  ]
+[e :U 1005 ]
 "267
-[; ;My_POELE_UART.c: 267:     cmdRS323Receive = 0;
-[e = _cmdRS323Receive -> -> 0 `i `a ]
+[; ;My_POELE_UART.c: 267:     {
+{
+"268
+[; ;My_POELE_UART.c: 268:         *str = read_RS232[position];
+[e = *U _str *U + &U _read_RS232 * -> _position `ux -> -> # *U &U _read_RS232 `ui `ux ]
 "269
-[; ;My_POELE_UART.c: 269: }
-[e :UE 1000 ]
+[; ;My_POELE_UART.c: 269:         read_RS232[position] = '\0';
+[e = *U + &U _read_RS232 * -> _position `ux -> -> # *U &U _read_RS232 `ui `ux -> -> 0 `ui `uc ]
+"270
+[; ;My_POELE_UART.c: 270:         str++;
+[e ++ _str * -> -> 1 `i `x -> -> # *U _str `i `x ]
+"271
+[; ;My_POELE_UART.c: 271:         position++;
+[e ++ _position -> -> 1 `i `uc ]
+"272
+[; ;My_POELE_UART.c: 272:     }
+}
+[e :U 1004 ]
+"266
+[; ;My_POELE_UART.c: 266:     while (read_RS232[position] != '\0')
+[e $ != -> *U + &U _read_RS232 * -> _position `ux -> -> # *U &U _read_RS232 `ui `ux `ui -> 0 `ui 1005  ]
+[e :U 1006 ]
+"273
+[; ;My_POELE_UART.c: 273:     *str = '\0';
+[e = *U _str -> -> 0 `ui `uc ]
+"274
+[; ;My_POELE_UART.c: 274:     cmdRS323Receive = 0;
+[e = _cmdRS323Receive -> -> 0 `i `a ]
+"276
+[; ;My_POELE_UART.c: 276: }
+[e :UE 1003 ]
 }
 [a 1C 13 10 79 75 13 10 0 ]

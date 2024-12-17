@@ -12491,7 +12491,7 @@ void POELE_SendString(char *str);
 uint8_t UART2_Read(void);
 _Bool POELE_DataIsReceived(void);
 void POELE_Read(void);
-void RS232_EmptyData(void);
+void POELE_EmptyData(void);
 void POELE_cmd(char *str);
 void POELE_SendOK(void);
 # 12 "My_POELE_UART.c" 2
@@ -12568,7 +12568,7 @@ void UART2_Init(void)
 
     BAUD2CONbits.SCKP = 0;
 
-    RS232_EmptyData();
+    POELE_EmptyData();
 
 
     PIE3bits.RC2IE = 1;
@@ -12660,16 +12660,21 @@ void POELE_Read(void)
     }
 }
 # 240 "My_POELE_UART.c"
-void RS232_EmptyData(void)
+void POELE_EmptyData(void)
 {
     PIE3bits.RC2IE = 0;
 
-    read_RS232[0] = '\0';
+
+    for (uint8_t colonne = 25; colonne != 0; colonne--)
+    {
+        read_RS232[colonne] = '\0';
+    }
+
     cmdRS323Receive = 0;
 
     PIE3bits.RC2IE = 1;
 }
-# 257 "My_POELE_UART.c"
+# 262 "My_POELE_UART.c"
 void POELE_cmd(char *str)
 {
     uint8_t position = 0;
@@ -12677,9 +12682,11 @@ void POELE_cmd(char *str)
     while (read_RS232[position] != '\0')
     {
         *str = read_RS232[position];
+        read_RS232[position] = '\0';
         str++;
         position++;
     }
+    *str = '\0';
     cmdRS323Receive = 0;
 
 }

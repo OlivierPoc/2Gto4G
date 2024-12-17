@@ -118,8 +118,8 @@ void main(void)
 
     PIC_Init(); //Initialise le PIC
     LCD_Init();
-    UART1_Init();  // Modem
-    UART2_Init();  // Poele
+    UART1_Init(); // Modem
+    UART2_Init(); // Poele
     P2_ROUGE = LED_ON; // LED on
 
     INTERRUPT_GlobalInterruptEnable();
@@ -135,34 +135,37 @@ void main(void)
         if (S0 == PRESS)
         {
             LCD_Clear();
-            Modem_BOOT();
             Modem_EmptyData();
+            POELE_EmptyData();
+            Modem_BOOT();
             while (S0 == PRESS);
-            LCD_PrintString("Modem:ON"); //indique que le pic est en fonctionement
+            LCD_CursorPosition(1, 1);
+            LCD_PrintString("M:RESET"); //indique que le pic est en fonctionement
+            LCD_CursorPosition(2, 1);
+            LCD_PrintString("P:RESET"); //indique que le pic est en fonctionement
         }
 
         if (S1 == PRESS)
         {
             LCD_Clear();
-            ptr = "AT"; //AT+GMI Request Manufacturer Identification
-            Modem_write_cmd(ptr);
+            ptr = "AT+CGMM"; //AT+GMI Request Manufacturer Identification
             LCD_CursorPosition(1, 1);
-            LCD_PrintString("M:");
+            LCD_PrintString("P:");
             LCD_PrintString(ptr); //indique que le pic est en fonctionement
-            //POELE_cmd(str_POELE);
             while (S1 == PRESS);
+            Modem_write_cmd(ptr);
         }
 
         if (S2 == PRESS)
         {
             LCD_Clear();
             ptr = "AT+GMI"; //AT+GMI Request Manufacturer Identification
-            Modem_write_cmd(ptr);
             LCD_CursorPosition(1, 1);
-            LCD_PrintString("S:");
+            LCD_PrintString("P:");
             LCD_PrintString(ptr); //indique que le pic est en fonctionement
             //POELE_cmd(str_POELE);
             while (S2 == PRESS);
+            Modem_write_cmd(ptr);
         }
 
         if (Modem_DataIsReceived()) // Modem Receive Buffer is full ('1')
@@ -179,6 +182,7 @@ void main(void)
             else
             {
                 POELE_SendStringCRLF(str_modem);
+                POELE_SendOK();
             }
             P2_VERTE = LED_OFF;
         }
@@ -281,7 +285,6 @@ void main(void)
             else
             {
                 Modem_write_cmd(str_POELE);
-
             }
 
             P2_ROUGE = LED_OFF;

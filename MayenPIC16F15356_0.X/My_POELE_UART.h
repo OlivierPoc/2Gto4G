@@ -40,7 +40,7 @@ void POELE_SendString(char *str);
 uint8_t UART2_Read(void);
 bool POELE_DataIsReceived(void);
 void POELE_Read(void);
-void RS232_EmptyData(void);
+void POELE_EmptyData(void);
 void POELE_cmd(char *str);
 void POELE_SendOK(void);
 

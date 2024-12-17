@@ -209,7 +209,9 @@ void Modem_Read(void)
         else if (data != LF) // si fin de transmission 
         {
             modem_str[modem_buffer_index][position] = data;
+          //  modem_str[modem_buffer_index][position] = '\0';
             position++;
+           
         }
     }
     else
@@ -234,11 +236,16 @@ void Modem_EmptyData(void)
 {
     PIE3bits.RC1IE = 0;
 
-    //    read_modem[0] = 0;
+    for(uint8_t ligne=LIGNE;ligne!=0;ligne--)
+    {
+        for(uint8_t colonne=COLONNE;colonne!=0;colonne--)
+        {
+            modem_str[ligne][colonne] = '\0';
+        }
+    }
     modem_buffer_index = 0;
     modem_read_buffer = 0;
     position = 0;
-    //    cmdModemReceive = false;
 
     PIE3bits.RC1IE = 1;
 }
@@ -260,6 +267,7 @@ void Modem_read_cmd(char *str)
         *str = modem_str[modem_read_buffer][readPosition];
         str++;
         *str ='\0';
+        //modem_str[modem_read_buffer][readPosition]='\0';
         readPosition++;
     }
     modem_read_buffer++;

@@ -96,7 +96,7 @@ void UART2_Init(void)
     // 0 = Idle state is high (TX)
     BAUD2CONbits.SCKP = 0;
 
-    RS232_EmptyData();
+    POELE_EmptyData();
 
     // Disable interupt         
     PIE3bits.RC2IE = 1;
@@ -237,11 +237,16 @@ void POELE_Read(void)
 // Desc.: vide la buffer de reception
 // Ver. Date: V00 20170604 Création (YYYYMMDD)	
 //---------------------------------------------------------
-void RS232_EmptyData(void)
+void POELE_EmptyData(void)
 {
     PIE3bits.RC2IE = 0;
 
-    read_RS232[0] = '\0';
+
+    for (uint8_t colonne = MAX_SIZE_MESSAGE_RS232; colonne != 0; colonne--)
+    {
+        read_RS232[colonne] = '\0';
+    }
+
     cmdRS323Receive = false;
 
     PIE3bits.RC2IE = 1;
@@ -261,9 +266,11 @@ void POELE_cmd(char *str)
     while (read_RS232[position] != '\0')
     {
         *str = read_RS232[position];
+        read_RS232[position] = '\0';
         str++;
         position++;
     }
+    *str = '\0';
     cmdRS323Receive = false;
 
 }
