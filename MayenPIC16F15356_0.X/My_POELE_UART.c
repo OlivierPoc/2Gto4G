@@ -216,7 +216,7 @@ void POELE_Read(void)
             cmdRS323Receive = true;
             position = 0;
         }
-        else
+        else if (data != LF)
         {
             read_RS232[position] = data;
             position++;

@@ -1393,8 +1393,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 }
 [e $U 996  ]
 "219
-[; ;My_POELE_UART.c: 219:         else
+[; ;My_POELE_UART.c: 219:         else if (data != 0x0A)
 [e :U 995 ]
+[e $ ! != -> _data `i -> 10 `i 997  ]
 "220
 [; ;My_POELE_UART.c: 220:         {
 {
@@ -1410,11 +1411,12 @@ Version 4.0 HI-TECH Software Intermediate Code
 "224
 [; ;My_POELE_UART.c: 224:         }
 }
+[e :U 997 ]
 [e :U 996 ]
 "225
 [; ;My_POELE_UART.c: 225:     }
 }
-[e $U 997  ]
+[e $U 998  ]
 "226
 [; ;My_POELE_UART.c: 226:     else
 [e :U 994 ]
@@ -1430,7 +1432,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 "230
 [; ;My_POELE_UART.c: 230:     }
 }
-[e :U 997 ]
+[e :U 998 ]
 "231
 [; ;My_POELE_UART.c: 231: }
 [e :UE 993 ]
@@ -1457,7 +1459,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = . . _PIE3bits 0 7 -> -> 1 `i `uc ]
 "248
 [; ;My_POELE_UART.c: 248: }
-[e :UE 998 ]
+[e :UE 999 ]
 }
 "257
 [; ;My_POELE_UART.c: 257: void POELE_cmd(char *str)
@@ -1478,8 +1480,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _position -> -> 0 `i `uc ]
 "261
 [; ;My_POELE_UART.c: 261:     while (read_RS232[position] != '\0')
-[e $U 1000  ]
-[e :U 1001 ]
+[e $U 1001  ]
+[e :U 1002 ]
 "262
 [; ;My_POELE_UART.c: 262:     {
 {
@@ -1495,16 +1497,16 @@ Version 4.0 HI-TECH Software Intermediate Code
 "266
 [; ;My_POELE_UART.c: 266:     }
 }
-[e :U 1000 ]
+[e :U 1001 ]
 "261
 [; ;My_POELE_UART.c: 261:     while (read_RS232[position] != '\0')
-[e $ != -> *U + &U _read_RS232 * -> _position `ux -> -> # *U &U _read_RS232 `ui `ux `ui -> 0 `ui 1001  ]
-[e :U 1002 ]
+[e $ != -> *U + &U _read_RS232 * -> _position `ux -> -> # *U &U _read_RS232 `ui `ux `ui -> 0 `ui 1002  ]
+[e :U 1003 ]
 "267
 [; ;My_POELE_UART.c: 267:     cmdRS323Receive = 0;
 [e = _cmdRS323Receive -> -> 0 `i `a ]
 "269
 [; ;My_POELE_UART.c: 269: }
-[e :UE 999 ]
+[e :UE 1000 ]
 }
 [a 1C 13 10 79 75 13 10 0 ]
