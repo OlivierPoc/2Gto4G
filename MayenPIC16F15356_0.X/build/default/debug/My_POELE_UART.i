@@ -12479,14 +12479,14 @@ _Bool cmdRS323Receive;
 # 38 "./My_POELE_UART.h"
 void UART2_Init(void);
 void UART2_Write(uint8_t data);
-void POELE_SendStringCRLF_ToPoele(char *str);
+void POELE_SendStringCRLF(char *str);
 void POELE_SendString(char *str);
 uint8_t UART2_Read(void);
 _Bool POELE_DataIsReceived(void);
 void POELE_Read(void);
 void POELE_EmptyData(void);
-void POELE_ReadCmd_FormPoele(char *str);
-void POELE_SendOK_ToPoele(void);
+void POELE_cmd(char *str);
+void POELE_SendOK(void);
 # 12 "My_POELE_UART.c" 2
 
 
@@ -12584,8 +12584,13 @@ _Bool POELE_DataIsReceived(void)
 {
     return cmdRS323Receive;
 }
+<<<<<<< HEAD
 # 151 "My_POELE_UART.c"
 void POELE_SendStringCRLF_ToPoele(char *str)
+=======
+# 153 "My_POELE_UART.c"
+void POELE_SendStringCRLF(char *str)
+>>>>>>> parent of 99d1453 (debug and change name)
 {
     while (*str != '\0')
     {
@@ -12610,8 +12615,13 @@ void POELE_SendString(char *str)
         str++;
     }
 }
+<<<<<<< HEAD
 # 184 "My_POELE_UART.c"
 void POELE_SendOK_ToPoele(void)
+=======
+# 186 "My_POELE_UART.c"
+void POELE_SendOK(void)
+>>>>>>> parent of 99d1453 (debug and change name)
 {
     POELE_SendString("\r\nOK\r\n");
 
@@ -12664,8 +12674,13 @@ void POELE_EmptyData(void)
 
     PIE3bits.RC2IE = 1;
 }
+<<<<<<< HEAD
 # 261 "My_POELE_UART.c"
 void POELE_ReadCmd_FormPoele(char *str)
+=======
+# 263 "My_POELE_UART.c"
+void POELE_cmd(char *str)
+>>>>>>> parent of 99d1453 (debug and change name)
 {
     uint8_t position = 0;
 

@@ -37,14 +37,14 @@ bool cmdRS323Receive;  // indication de la réception d'une commande
 //----- Function Declarations -----------------------------
 void UART2_Init(void);
 void UART2_Write(uint8_t data);
-void POELE_SendStringCRLF_ToPoele(char *str);
+void POELE_SendStringCRLF(char *str);
 void POELE_SendString(char *str);
 uint8_t UART2_Read(void);
 bool POELE_DataIsReceived(void);
 void POELE_Read(void);
 void POELE_EmptyData(void);
-void POELE_ReadCmd_FormPoele(char *str);
-void POELE_SendOK_ToPoele(void);
+void POELE_cmd(char *str);
+void POELE_SendOK(void);
 
 #endif	/* UART1_H */
 

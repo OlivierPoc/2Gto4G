@@ -148,7 +148,7 @@ bool POELE_DataIsReceived(void)
 // Desc.: Send String
 // Ver. Date: V00 221110 Création (YYYYMMDD)	
 //---------------------------------------------------------------------
-void POELE_SendStringCRLF_ToPoele(char *str)
+void POELE_SendStringCRLF(char *str)
 {
     while (*str != '\0')
     {
@@ -181,7 +181,7 @@ void POELE_SendString(char *str)
 // Desc.: Send String
 // Ver. Date: V00 221110 Création (YYYYMMDD)	
 //---------------------------------------------------------------------
-void POELE_SendOK_ToPoele(void)
+void POELE_SendOK(void)
 {
     POELE_SendString("\r\nOK\r\n");
     //    UART2_Write(CR);
@@ -258,7 +258,7 @@ void POELE_EmptyData(void)
 // Desc.: Send String
 // Ver. Date: V00 221110 Création (YYYYMMDD)	
 //---------------------------------------------------------------------
-void POELE_ReadCmd_FormPoele(char *str)
+void POELE_cmd(char *str)
 {
     uint8_t position = 0;
 

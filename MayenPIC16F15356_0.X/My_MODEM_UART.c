@@ -147,14 +147,21 @@ uint8_t UART1_Read()
 //---------------------------------------------------------------------
 bool Modem_DataIsReceived(void)
 {
+
     if (modem_buffer_index != modem_read_buffer)
     {
         return true;
     }
     else
     {
+<<<<<<< HEAD
+=======
+        modem_buffer_index = 0;
+        modem_read_buffer = 0;
+>>>>>>> parent of 99d1453 (debug and change name)
         return false;
     }
+
 }
 //---------------------------------------------------------------------	
 
@@ -202,6 +209,7 @@ void Modem_Read(void)
         else if (data != LF) // si fin de transmission 
         {
             modem_str[modem_buffer_index][position] = data;
+          //  modem_str[modem_buffer_index][position] = '\0';
             position++;
         }
     }
@@ -262,8 +270,12 @@ void Modem_read_cmd(char *str)
         readPosition++;
     }
     modem_read_buffer++;
+<<<<<<< HEAD
 
     if (modem_read_buffer == LIGNE)
+=======
+    if (modem_read_buffer == 9)
+>>>>>>> parent of 99d1453 (debug and change name)
     {
         modem_read_buffer = 0;
     }
@@ -277,7 +289,7 @@ void Modem_read_cmd(char *str)
 // Desc.: read modem message
 // Ver. Date: V00 221110 Création (YYYYMMDD)	
 //---------------------------------------------------------------------
-void Modem_write_cmd_ToModem(char *str)
+void Modem_write_cmd(char *str)
 {
     UART1_SendString(str);
 }

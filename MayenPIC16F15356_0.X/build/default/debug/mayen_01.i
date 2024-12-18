@@ -7,7 +7,7 @@
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
 # 1 "mayen_01.c" 2
-# 15 "mayen_01.c"
+# 14 "mayen_01.c"
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\xc.h" 1 3
 # 18 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -12466,11 +12466,11 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 28 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\xc.h" 2 3
-# 15 "mayen_01.c" 2
+# 14 "mayen_01.c" 2
 
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\stdbool.h" 1 3
-# 17 "mayen_01.c" 2
+# 16 "mayen_01.c" 2
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\string.h" 1 3
 # 25 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\string.h" 3
@@ -12529,16 +12529,23 @@ size_t strxfrm_l (char *restrict, const char *restrict, size_t, locale_t);
 
 
 void *memccpy (void *restrict, const void *restrict, int, size_t);
-# 18 "mayen_01.c" 2
+# 17 "mayen_01.c" 2
 
 
 # 1 "./mayen_01.h" 1
 # 15 "./mayen_01.h"
 # 1 "./My_MODEM_UART.h" 1
+<<<<<<< HEAD
 # 38 "./My_MODEM_UART.h"
 char modem_str[11][65] = {0};
 static char modem_buffer_index=0;
 static char modem_read_buffer=0;
+=======
+# 39 "./My_MODEM_UART.h"
+char modem_str[11][20] = {0};
+char modem_buffer_index=0;
+char modem_read_buffer=0;
+>>>>>>> parent of 99d1453 (debug and change name)
 uint8_t position = 0;
 
 
@@ -12551,7 +12558,7 @@ _Bool Modem_DataIsReceived(void);
 void Modem_Read(void);
 void Modem_EmptyData(void);
 void Modem_read_cmd(char *str);
-void Modem_write_cmd_ToModem(char *str);
+void Modem_write_cmd(char *str);
 # 15 "./mayen_01.h" 2
 
 # 1 "./My_POELE_UART.h" 1
@@ -12562,14 +12569,14 @@ _Bool cmdRS323Receive;
 # 38 "./My_POELE_UART.h"
 void UART2_Init(void);
 void UART2_Write(uint8_t data);
-void POELE_SendStringCRLF_ToPoele(char *str);
+void POELE_SendStringCRLF(char *str);
 void POELE_SendString(char *str);
 uint8_t UART2_Read(void);
 _Bool POELE_DataIsReceived(void);
 void POELE_Read(void);
 void POELE_EmptyData(void);
-void POELE_ReadCmd_FormPoele(char *str);
-void POELE_SendOK_ToPoele(void);
+void POELE_cmd(char *str);
+void POELE_SendOK(void);
 # 16 "./mayen_01.h" 2
 
 # 1 "./MyLib_LCD.h" 1
@@ -12594,7 +12601,7 @@ _Bool LCD_ReadBF_bool(void);
 void Modem_BOOT(void);
 void PIC_Init(void);
 void Empty_str(void);
-# 20 "mayen_01.c" 2
+# 19 "mayen_01.c" 2
 
 
 
@@ -12678,7 +12685,7 @@ void main(void)
             LCD_PrintString("P:");
             LCD_PrintString(ptr);
             while (PORTCbits.RC1 == 0);
-            Modem_write_cmd_ToModem(ptr);
+            Modem_write_cmd(ptr);
         }
 
         if (PORTCbits.RC2 == 0)
@@ -12690,7 +12697,7 @@ void main(void)
             LCD_PrintString(ptr);
 
             while (PORTCbits.RC2 == 0);
-            Modem_write_cmd_ToModem(ptr);
+            Modem_write_cmd(ptr);
         }
 
         if (Modem_DataIsReceived())
@@ -12710,8 +12717,8 @@ void main(void)
             }
             else
             {
-                POELE_SendStringCRLF_ToPoele(str_modem);
-
+                POELE_SendStringCRLF(str_modem);
+                POELE_SendOK();
             }
             LATBbits.LATB5 = 1;
         }
@@ -12719,27 +12726,34 @@ void main(void)
         if ((POELE_DataIsReceived()))
         {
             LATBbits.LATB4 = 0;
+<<<<<<< HEAD
 
 
 
 
             POELE_ReadCmd_FormPoele(str_POELE);
+=======
+            for (uint8_t index = 25 - 1; index != 0; index--)
+            {
+                str_POELE[index] = '\0';
+            }
+            POELE_cmd(str_POELE);
+>>>>>>> parent of 99d1453 (debug and change name)
 
             if (strcmp("AT+GMI", str_POELE) == 0)
             {
-                POELE_SendStringCRLF_ToPoele("Cinterion");
-                POELE_SendOK_ToPoele();
+                POELE_SendStringCRLF("Cinterion");
+                POELE_SendOK();
             }
             else if (strcmp("AT+GMM", str_POELE) == 0)
             {
-                POELE_SendStringCRLF_ToPoele("BGS2-W");
-                POELE_SendOK_ToPoele();
+                POELE_SendStringCRLF("BGS2-W");
+                POELE_SendOK();
             }
-
-
+# 238 "mayen_01.c"
             else
             {
-                Modem_write_cmd_ToModem(str_POELE);
+                Modem_write_cmd(str_POELE);
             }
 
             LATBbits.LATB4 = 1;
@@ -12749,7 +12763,11 @@ void main(void)
 
     while (1);
 }
+<<<<<<< HEAD
 # 235 "mayen_01.c"
+=======
+# 258 "mayen_01.c"
+>>>>>>> parent of 99d1453 (debug and change name)
 void __attribute__((picinterrupt(("")))) INTERRUPT_InterruptManager(void)
 {
 
@@ -12760,10 +12778,15 @@ void __attribute__((picinterrupt(("")))) INTERRUPT_InterruptManager(void)
             POELE_Read();
         }
 
+
+
+
+
         if (PIE3bits.RC1IE == 1 && PIR3bits.RC1IF == 1)
         {
             Modem_Read();
         }
+# 286 "mayen_01.c"
     }
 }
 
@@ -12815,7 +12838,11 @@ void PIC_Init(void)
     RX2DTPPS = 0x0B;
     RX1DTPPS = 0x16;
 }
+<<<<<<< HEAD
 # 308 "mayen_01.c"
+=======
+# 339 "mayen_01.c"
+>>>>>>> parent of 99d1453 (debug and change name)
 void Modem_BOOT(void)
 {
     do { LATCbits.LATC5 = 1; } while(0);
@@ -12826,5 +12853,10 @@ void Modem_BOOT(void)
     {
         _delay((unsigned long)((500)*(12000000/4000.0)));
     }
+
+}
+# 359 "mayen_01.c"
+void Empty_str(void)
+{
 
 }

@@ -36,8 +36,8 @@
 
 //----- Global variable  -----------------------------
 char modem_str[LIGNE][COLONNE] = {0};
-static char modem_buffer_index=0;  
-static char modem_read_buffer=0;  // ligne read position tabel 
+char modem_buffer_index=0;
+char modem_read_buffer=0;
 uint8_t position = 0;
 
 //----- Function Declarations -----------------------------
@@ -50,7 +50,7 @@ bool Modem_DataIsReceived(void);
 void Modem_Read(void);
 void Modem_EmptyData(void);
 void Modem_read_cmd(char *str);
-void Modem_write_cmd_ToModem(char *str);
+void Modem_write_cmd(char *str);
 
 #endif	/* UART1_H */
 

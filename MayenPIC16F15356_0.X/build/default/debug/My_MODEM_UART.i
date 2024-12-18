@@ -12531,10 +12531,17 @@ size_t strxfrm_l (char *restrict, const char *restrict, size_t, locale_t);
 
 void *memccpy (void *restrict, const void *restrict, int, size_t);
 # 17 "./My_MODEM_UART.h" 2
+<<<<<<< HEAD
 # 38 "./My_MODEM_UART.h"
 char modem_str[11][65] = {0};
 static char modem_buffer_index=0;
 static char modem_read_buffer=0;
+=======
+# 39 "./My_MODEM_UART.h"
+char modem_str[11][20] = {0};
+char modem_buffer_index=0;
+char modem_read_buffer=0;
+>>>>>>> parent of 99d1453 (debug and change name)
 uint8_t position = 0;
 
 
@@ -12547,7 +12554,7 @@ _Bool Modem_DataIsReceived(void);
 void Modem_Read(void);
 void Modem_EmptyData(void);
 void Modem_read_cmd(char *str);
-void Modem_write_cmd_ToModem(char *str);
+void Modem_write_cmd(char *str);
 # 11 "My_MODEM_UART.c" 2
 
 
@@ -12653,16 +12660,27 @@ uint8_t UART1_Read()
 # 148 "My_MODEM_UART.c"
 _Bool Modem_DataIsReceived(void)
 {
+
     if (modem_buffer_index != modem_read_buffer)
     {
         return 1;
     }
     else
     {
+<<<<<<< HEAD
+=======
+        modem_buffer_index = 0;
+        modem_read_buffer = 0;
+>>>>>>> parent of 99d1453 (debug and change name)
         return 0;
     }
+
 }
+<<<<<<< HEAD
 # 167 "My_MODEM_UART.c"
+=======
+# 170 "My_MODEM_UART.c"
+>>>>>>> parent of 99d1453 (debug and change name)
 void UART1_SendString(char *str)
 {
     while (*str != '\0')
@@ -12673,7 +12691,11 @@ void UART1_SendString(char *str)
     UART1_Write(0x0D);
     UART1_Write(0x0A);
 }
+<<<<<<< HEAD
 # 185 "My_MODEM_UART.c"
+=======
+# 188 "My_MODEM_UART.c"
+>>>>>>> parent of 99d1453 (debug and change name)
 void Modem_Read(void)
 {
     char data;
@@ -12694,6 +12716,7 @@ void Modem_Read(void)
         else if (data != 0x0A)
         {
             modem_str[modem_buffer_index][position] = data;
+
             position++;
         }
     }
@@ -12707,7 +12730,11 @@ void Modem_Read(void)
         modem_buffer_index = 0;
     }
 }
+<<<<<<< HEAD
 # 226 "My_MODEM_UART.c"
+=======
+# 235 "My_MODEM_UART.c"
+>>>>>>> parent of 99d1453 (debug and change name)
 void Modem_EmptyData(void)
 {
     PIE3bits.RC1IE = 0;
@@ -12725,7 +12752,11 @@ void Modem_EmptyData(void)
 
     PIE3bits.RC1IE = 1;
 }
+<<<<<<< HEAD
 # 251 "My_MODEM_UART.c"
+=======
+# 260 "My_MODEM_UART.c"
+>>>>>>> parent of 99d1453 (debug and change name)
 void Modem_read_cmd(char *str)
 {
     uint8_t readPosition = 0;
@@ -12740,15 +12771,24 @@ void Modem_read_cmd(char *str)
         readPosition++;
     }
     modem_read_buffer++;
+<<<<<<< HEAD
 
     if (modem_read_buffer == 11)
+=======
+    if (modem_read_buffer == 9)
+>>>>>>> parent of 99d1453 (debug and change name)
     {
         modem_read_buffer = 0;
     }
 
 }
+<<<<<<< HEAD
 # 280 "My_MODEM_UART.c"
 void Modem_write_cmd_ToModem(char *str)
+=======
+# 288 "My_MODEM_UART.c"
+void Modem_write_cmd(char *str)
+>>>>>>> parent of 99d1453 (debug and change name)
 {
     UART1_SendString(str);
 }
