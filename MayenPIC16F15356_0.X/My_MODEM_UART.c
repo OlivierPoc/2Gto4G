@@ -85,12 +85,14 @@ void UART1_Init(void)
     RC1STAbits.CREN = 1;
 
     /*================== BAUDCTL: BAUD RATE CONTROL REGISTER =================*/
-    SP1BRG = 16; //115.2k baud rate 
+
 
     //BRG16: 16-bit Baud Rate Generator bit
     //      1 = 16-bit Baud Rate Generator is used
     //      0 = 8-bit Baud Rate Generator is used
     BAUD1CONbits.BRG16 = 1;
+
+    SP1BRG = 39; //115.2k baud rate 
 
     // Clock Transmit Polarity Selesction Bit
     // 1 = Idle state is low (TX)
@@ -148,12 +150,9 @@ bool Modem_DataIsReceived(void)
     if (modem_buffer_index != modem_read_buffer)
     {
         return true;
-
     }
     else
     {
-        //modem_buffer_index = 0;
-        //modem_read_buffer = 0;
         return false;
     }
 }
@@ -185,7 +184,6 @@ void UART1_SendString(char *str)
 //---------------------------------------------------------
 void Modem_Read(void)
 {
-
     char data;
 
     data = UART1_Read();
@@ -194,13 +192,10 @@ void Modem_Read(void)
     {
         if (data == CR) // si fin de transmission 
         {
-            if (position < 1)
+            modem_str[modem_buffer_index][position] = '\0';
+            if (position != 0) // si text commence par CR
             {
                 modem_buffer_index++;
-            }
-            else
-            {
-                modem_str[modem_buffer_index][position] = '\0';
             }
             position = 0;
         }
@@ -208,7 +203,6 @@ void Modem_Read(void)
         {
             modem_str[modem_buffer_index][position] = data;
             position++;
-           
         }
     }
     else
@@ -216,7 +210,7 @@ void Modem_Read(void)
         position = 0;
     }
 
-    if (modem_buffer_index == 9)
+    if (modem_buffer_index == LIGNE)
     {
         modem_buffer_index = 0;
     }
@@ -233,9 +227,9 @@ void Modem_EmptyData(void)
 {
     PIE3bits.RC1IE = 0;
 
-    for(uint8_t ligne=LIGNE;ligne!=0;ligne--)
+    for (uint8_t ligne = LIGNE; ligne != 0; ligne--)
     {
-        for(uint8_t colonne=COLONNE;colonne!=0;colonne--)
+        for (uint8_t colonne = COLONNE; colonne != 0; colonne--)
         {
             modem_str[ligne][colonne] = '\0';
         }
@@ -260,16 +254,16 @@ void Modem_read_cmd(char *str)
 
     while ((modem_str[modem_read_buffer][readPosition] != '\0') && (modem_str[modem_read_buffer][readPosition] != CR))
     {
-        //*str = read_modem[position];
+
         *str = modem_str[modem_read_buffer][readPosition];
         str++;
-        *str ='\0';
+        *str = '\0';
         //modem_str[modem_read_buffer][readPosition]='\0';
         readPosition++;
     }
     modem_read_buffer++;
-    
-    if (modem_read_buffer == 9)
+
+    if (modem_read_buffer == LIGNE)
     {
         modem_read_buffer = 0;
     }

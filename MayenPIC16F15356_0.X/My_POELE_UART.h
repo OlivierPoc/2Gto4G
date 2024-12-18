@@ -16,12 +16,14 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+
 //***************MODEM DEFINITION***************
 //--- Define AT  CMD
 #define CR  0x0D     // '\r'  // Défini le carriage return en code ASCII (retour à la ligne)
 #define LF  0x0A     // '\n'  // Défini le Line Feed en code ASCII (saut de ligne)
 
-#define MAX_SIZE_MESSAGE 25
+#define MAX_SIZE_MESSAGE 65
+
 static char read_RS232[MAX_SIZE_MESSAGE]; // data modem communication
 
 bool cmdRS323Receive;  // indication de la réception d'une commande

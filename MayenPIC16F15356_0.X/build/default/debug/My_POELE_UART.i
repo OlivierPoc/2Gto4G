@@ -12472,18 +12472,11 @@ extern __bank0 __bit __timeout;
 # 17 "./My_POELE_UART.h"
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.50\\pic\\include\\c99\\stdbool.h" 1 3
 # 17 "./My_POELE_UART.h" 2
-
-
-
-
-
-
-
-
-static char read_RS232[25];
+# 27 "./My_POELE_UART.h"
+static char read_RS232[65];
 
 _Bool cmdRS323Receive;
-# 36 "./My_POELE_UART.h"
+# 38 "./My_POELE_UART.h"
 void UART2_Init(void);
 void UART2_Write(uint8_t data);
 void POELE_SendStringCRLF_ToPoele(char *str);
@@ -12556,12 +12549,12 @@ void UART2_Init(void)
     RC2STAbits.CREN = 1;
 
 
-    SP2BRG = 16;
-
-
 
 
     BAUD2CONbits.BRG16 = 1;
+
+
+    SP2BRG = 39;
 
 
 
@@ -12589,11 +12582,9 @@ uint8_t UART2_Read()
 # 139 "My_POELE_UART.c"
 _Bool POELE_DataIsReceived(void)
 {
-
     return cmdRS323Receive;
-
 }
-# 153 "My_POELE_UART.c"
+# 151 "My_POELE_UART.c"
 void POELE_SendStringCRLF_ToPoele(char *str)
 {
     while (*str != '\0')
@@ -12619,7 +12610,7 @@ void POELE_SendString(char *str)
         str++;
     }
 }
-# 186 "My_POELE_UART.c"
+# 184 "My_POELE_UART.c"
 void POELE_SendOK_ToPoele(void)
 {
     POELE_SendString("\r\nOK\r\n");
@@ -12630,7 +12621,7 @@ void POELE_SendOK_ToPoele(void)
 
 
 }
-# 204 "My_POELE_UART.c"
+# 202 "My_POELE_UART.c"
 void POELE_Read(void)
 {
     static uint8_t position = 0;
@@ -12659,12 +12650,12 @@ void POELE_Read(void)
         position = 0;
     }
 }
-# 240 "My_POELE_UART.c"
+# 238 "My_POELE_UART.c"
 void POELE_EmptyData(void)
 {
     PIE3bits.RC2IE = 0;
 
-    for (uint8_t colonne = 25; colonne != 0; colonne--)
+    for (uint8_t colonne = 65; colonne != 0; colonne--)
     {
         read_RS232[colonne] = '\0';
     }
@@ -12673,7 +12664,7 @@ void POELE_EmptyData(void)
 
     PIE3bits.RC2IE = 1;
 }
-# 263 "My_POELE_UART.c"
+# 261 "My_POELE_UART.c"
 void POELE_ReadCmd_FormPoele(char *str)
 {
     uint8_t position = 0;

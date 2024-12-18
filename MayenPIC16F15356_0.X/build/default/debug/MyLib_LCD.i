@@ -12505,25 +12505,25 @@ void LCD_Init(void)
     TRISAbits.TRISA2=0;
     TRISAbits.TRISA3=0;
 
-    _delay((unsigned long)((16)*(8000000/4000.0)));
+    _delay((unsigned long)((16)*(12000000/4000.0)));
 
     LATBbits.LATB0 = 0;
     LATBbits.LATB1 = 0;
     LCD_WriteQuartet_bit(0x03);
 
-    _delay((unsigned long)((5)*(8000000/4000.0)));
+    _delay((unsigned long)((5)*(12000000/4000.0)));
 
      LCD_WriteQuartet_bit(0x03);
 
-   _delay((unsigned long)((110)*(8000000/4000000.0)));
+   _delay((unsigned long)((110)*(12000000/4000000.0)));
 
     LCD_WriteQuartet_bit(0x03);
 
-    _delay((unsigned long)((110)*(8000000/4000000.0)));
+    _delay((unsigned long)((110)*(12000000/4000000.0)));
 
    LCD_WriteQuartet_bit(0x02);
 
-    _delay((unsigned long)((40)*(8000000/4000000.0)));
+    _delay((unsigned long)((40)*(12000000/4000000.0)));
 
 
     LCD_WriteCommand(0b00101000);
@@ -12545,7 +12545,7 @@ void LCD_WriteQuartet_bit(uint8_t data)
     uint8_t tempData;
 
     LATBbits.LATB1 = 0;
-    _delay((unsigned long)((1)*(8000000/4000000.0)));
+    _delay((unsigned long)((1)*(12000000/4000000.0)));
 
     tempData = (data & 0x0F);
 
@@ -12557,11 +12557,11 @@ void LCD_WriteQuartet_bit(uint8_t data)
     tempData = tempData >> 1;
     LATAbits.LATA3 = (tempData & 0x01);
 
-    _delay((unsigned long)((1)*(8000000/4000000.0)));
+    _delay((unsigned long)((1)*(12000000/4000000.0)));
         LATAbits.LATA4 = 1;
-    _delay((unsigned long)((1)*(8000000/4000000.0)));
+    _delay((unsigned long)((1)*(12000000/4000000.0)));
         LATAbits.LATA4 = 0;
-    _delay((unsigned long)((1)*(8000000/4000000.0)));
+    _delay((unsigned long)((1)*(12000000/4000000.0)));
 }
 # 97 "MyLib_LCD.c"
 void LCD_WriteQuartet(uint8_t data)
@@ -12574,11 +12574,11 @@ void LCD_WriteQuartet(uint8_t data)
 
     LATA = tempPORTA | tempData ;
 
-    _delay((unsigned long)((1)*(8000000/4000000.0)));
+    _delay((unsigned long)((1)*(12000000/4000000.0)));
     LATAbits.LATA4 = 1;
-    _delay((unsigned long)((1)*(8000000/4000000.0)));
+    _delay((unsigned long)((1)*(12000000/4000000.0)));
  LATAbits.LATA4 = 0;
-    _delay((unsigned long)((1)*(8000000/4000000.0)));
+    _delay((unsigned long)((1)*(12000000/4000000.0)));
 }
 # 121 "MyLib_LCD.c"
  void LCD_WriteData(uint8_t data)
@@ -12596,11 +12596,11 @@ void LCD_WriteCommand (uint8_t byteCmd)
 {
     LATBbits.LATB0 = 0;
     LCD_WriteData(byteCmd);
-    _delay((unsigned long)((43)*(8000000/4000000.0)));
+    _delay((unsigned long)((43)*(12000000/4000000.0)));
 
     if((byteCmd==0b00000001) || (byteCmd ==0x02))
     {
-        _delay((unsigned long)((2)*(8000000/4000.0)));
+        _delay((unsigned long)((2)*(12000000/4000.0)));
     }
 
     LATBbits.LATB0 = 1;
@@ -12690,15 +12690,15 @@ uint8_t LCD_ReadQuartet(void)
     uint8_t tempData;
 
     LATBbits.LATB1 = 1;
-    _delay((unsigned long)((1)*(8000000/4000000.0)));
+    _delay((unsigned long)((1)*(12000000/4000000.0)));
 
     LATAbits.LATA4 = 1;
-    _delay((unsigned long)((1)*(8000000/4000000.0)));
+    _delay((unsigned long)((1)*(12000000/4000000.0)));
 
     tempData = PORTA & 0x0F;
 
     LATAbits.LATA4 = 0;
-   _delay((unsigned long)((1)*(8000000/4000000.0)));
+   _delay((unsigned long)((1)*(12000000/4000000.0)));
 
     LATBbits.LATB1 = 0;
 
@@ -12716,9 +12716,9 @@ uint8_t LCD_ReadQuartet_bit(void)
     TRISAbits.TRISA3=1;
 
     LATBbits.LATB1 = 1;
-    _delay((unsigned long)((1)*(8000000/4000000.0)));
+    _delay((unsigned long)((1)*(12000000/4000000.0)));
     LATAbits.LATA4 = 1;
-    _delay((unsigned long)((1)*(8000000/4000000.0)));
+    _delay((unsigned long)((1)*(12000000/4000000.0)));
 
 
     tempData = PORTAbits.RA3;
@@ -12730,10 +12730,10 @@ uint8_t LCD_ReadQuartet_bit(void)
     tempData = tempData + PORTAbits.RA0;
 
     LATAbits.LATA4 = 0;
-    _delay((unsigned long)((1)*(8000000/4000000.0)));
+    _delay((unsigned long)((1)*(12000000/4000000.0)));
 
     LATBbits.LATB1 = 0;
-    _delay((unsigned long)((1)*(8000000/4000000.0)));
+    _delay((unsigned long)((1)*(12000000/4000000.0)));
 
 
     TRISAbits.TRISA0=0;
@@ -12750,7 +12750,7 @@ _Bool LCD_ReadBF_bool(void)
     uint8_t tempData, tempTRIS;
 
     LATBbits.LATB0 = 0;
-    _delay((unsigned long)((1)*(8000000/4000000.0)));
+    _delay((unsigned long)((1)*(12000000/4000000.0)));
 
     tempData = LCD_ReadQuartet_bit();
 
@@ -12759,7 +12759,7 @@ _Bool LCD_ReadBF_bool(void)
     tempData = tempData + LCD_ReadQuartet_bit();
     LATBbits.LATB0 = 0;
 
-    _delay((unsigned long)((1)*(8000000/4000000.0)));
+    _delay((unsigned long)((1)*(12000000/4000000.0)));
 
     tempData = tempData>>7;
 

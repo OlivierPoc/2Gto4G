@@ -21,7 +21,6 @@
 #define CR  0x0D        // Défini le carriage return en code ASCII (retour à la ligne)
 #define LF  0x0A        // Défini le Line Feed en code ASCII (saut de ligne)
 
-#define MAX_SIZE_MESSAGE 25
 //char read_modem[MAX_SIZE_MESSAGE_MODEM]; // data modem communication
 
 
@@ -33,7 +32,7 @@
 
 //----- Constant Definiton  ----------------------------
 #define LIGNE   11
-#define COLONNE  20
+#define COLONNE  65  // MAX_SIZE_MESSAGE
 
 //----- Global variable  -----------------------------
 char modem_str[LIGNE][COLONNE] = {0};

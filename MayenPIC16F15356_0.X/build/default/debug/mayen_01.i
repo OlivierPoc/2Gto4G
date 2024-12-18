@@ -12535,8 +12535,8 @@ void *memccpy (void *restrict, const void *restrict, int, size_t);
 # 1 "./mayen_01.h" 1
 # 15 "./mayen_01.h"
 # 1 "./My_MODEM_UART.h" 1
-# 39 "./My_MODEM_UART.h"
-char modem_str[11][20] = {0};
+# 38 "./My_MODEM_UART.h"
+char modem_str[11][65] = {0};
 static char modem_buffer_index=0;
 static char modem_read_buffer=0;
 uint8_t position = 0;
@@ -12555,11 +12555,11 @@ void Modem_write_cmd_ToModem(char *str);
 # 15 "./mayen_01.h" 2
 
 # 1 "./My_POELE_UART.h" 1
-# 25 "./My_POELE_UART.h"
-static char read_RS232[25];
+# 27 "./My_POELE_UART.h"
+static char read_RS232[65];
 
 _Bool cmdRS323Receive;
-# 36 "./My_POELE_UART.h"
+# 38 "./My_POELE_UART.h"
 void UART2_Init(void);
 void UART2_Write(uint8_t data);
 void POELE_SendStringCRLF_ToPoele(char *str);
@@ -12632,14 +12632,14 @@ void Empty_str(void);
 
 
 #pragma config CP = OFF
-# 95 "mayen_01.c"
+# 94 "mayen_01.c"
 static _Bool message = 0;
-# 114 "mayen_01.c"
+# 113 "mayen_01.c"
 void main(void)
 {
-    char str_modem[25] = {0};
+    char str_modem[65] = {0};
     char *ptr;
-    char str_POELE[25] = {0};
+    char str_POELE[65] = {0};
 
     PIC_Init();
     LCD_Init();
@@ -12673,7 +12673,7 @@ void main(void)
         if (PORTCbits.RC1 == 0)
         {
             LCD_Clear();
-            ptr = "AT+CGMM";
+            ptr = "AT+GMM";
             LCD_CursorPosition(1, 1);
             LCD_PrintString("P:");
             LCD_PrintString(ptr);
@@ -12695,14 +12695,14 @@ void main(void)
 
         if (Modem_DataIsReceived())
         {
-            for (uint8_t index = 25 - 1; index != 0; index--)
-            {
-                str_modem[index] = '\0';
-            }
+
+
+
+
             Modem_read_cmd(str_modem);
-            LCD_CursorPosition(2, 1);
-            LCD_PrintString("M:");
-            LCD_PrintString(str_modem);
+
+
+
             LATBbits.LATB5 = 0;
             if (strcmp("sms", str_modem) == 0)
             {
@@ -12719,10 +12719,10 @@ void main(void)
         if ((POELE_DataIsReceived()))
         {
             LATBbits.LATB4 = 0;
-            for (uint8_t index = 25 - 1; index != 0; index--)
-            {
-                str_POELE[index] = '\0';
-            }
+
+
+
+
             POELE_ReadCmd_FormPoele(str_POELE);
 
             if (strcmp("AT+GMI", str_POELE) == 0)
@@ -12749,7 +12749,7 @@ void main(void)
 
     while (1);
 }
-# 236 "mayen_01.c"
+# 235 "mayen_01.c"
 void __attribute__((picinterrupt(("")))) INTERRUPT_InterruptManager(void)
 {
 
@@ -12778,16 +12778,22 @@ void PIC_Init(void)
 
 
 
-
-    OSCCON1 = 0x60;
+    OSCCON1bits.NDIV = 0b0000 ;
     OSCCON1bits.NOSC = 0b110;
+    OSCCON2bits.CDIV = 0b0000 ;
+    OSCCON2bits.COSC = 0b110;
 
 
     OSCCON3 = 0x00;
 
     OSCEN = 0x00;
 
-    OSCFRQ = 0x03;
+    OSCFRQbits.HFFRQ = 0b100;
+
+
+
+
+
 
 
     ANSELA = 0;
@@ -12809,16 +12815,16 @@ void PIC_Init(void)
     RX2DTPPS = 0x0B;
     RX1DTPPS = 0x16;
 }
-# 303 "mayen_01.c"
+# 308 "mayen_01.c"
 void Modem_BOOT(void)
 {
     do { LATCbits.LATC5 = 1; } while(0);
-    _delay((unsigned long)((500)*(8000000/4000.0)));
-    _delay((unsigned long)((500)*(8000000/4000.0)));
+    _delay((unsigned long)((500)*(12000000/4000.0)));
+    _delay((unsigned long)((500)*(12000000/4000.0)));
     do { LATCbits.LATC5 = 0; } while(0);
     for (char time = 15; time != 0; time--)
     {
-        _delay((unsigned long)((500)*(8000000/4000.0)));
+        _delay((unsigned long)((500)*(12000000/4000.0)));
     }
 
 }

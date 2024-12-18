@@ -15,7 +15,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#define _XTAL_FREQ 8000000      // 4MHz
+#define _XTAL_FREQ 12000000      // 4MHz
 
 // ------ LCD PORT DEFINITOn --------------
 #define LCD_DATA_W    LATA      // DATA0..3 Must be on port 0 1 2 3 !

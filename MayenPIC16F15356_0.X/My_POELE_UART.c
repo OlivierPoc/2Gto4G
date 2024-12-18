@@ -83,13 +83,13 @@ void UART2_Init(void)
     //      0 = Disables receiver
     RC2STAbits.CREN = 1;
 
-    /*================== BAUDCTL: BAUD RATE CONTROL REGISTER =================*/
-    SP2BRG = 16; //115.2k baud rate, 34->56k, 103->19.2k
-
     //BRG16: 16-bit Baud Rate Generator bit
     //      1 = 16-bit Baud Rate Generator is used
     //      0 = 8-bit Baud Rate Generator is used
     BAUD2CONbits.BRG16 = 1;
+    
+/*================== BAUDCTL: BAUD RATE CONTROL REGISTER =================*/
+    SP2BRG = 39; //115.2k baud rate pour 11MHz, 34->56k, 103->19.2k
 
     // Clock Transmit Polarity Selesction Bit
     // 1 = Idle state is low (TX)
@@ -138,9 +138,7 @@ uint8_t UART2_Read()
 //---------------------------------------------------------------------
 bool POELE_DataIsReceived(void)
 {
-
     return cmdRS323Receive;
-
 }
 //---------------------------------------------------------------------	
 

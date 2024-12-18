@@ -55,8 +55,7 @@
 // CONFIG5
 #pragma config CP = OFF    // UserNVM Program memory code protection bit->UserNVM code protection disabled
 
-#define CONF_OSCCON 0b01101010  //4MHz clock speed
-#define _XTAL_FREQ 8000000      // 8MHz
+#define _XTAL_FREQ 12000000      // 12MHz
 
 // INTERUP
 #define INTERRUPT_GlobalInterruptEnable() (INTCONbits.GIE = 1)
@@ -149,7 +148,7 @@ void main(void)
         if (S1 == PRESS)
         {
             LCD_Clear();
-            ptr = "AT+CGMM"; //AT+GMI Request Manufacturer Identification
+            ptr = "AT+GMM"; //AT+GMI Request Manufacturer Identification
             LCD_CursorPosition(1, 1);
             LCD_PrintString("P:");
             LCD_PrintString(ptr); //indique que le pic est en fonctionement
@@ -171,14 +170,14 @@ void main(void)
 
         if (Modem_DataIsReceived()) // Modem Receive Buffer is full ('1')
         {
-            for (uint8_t index = MAX_SIZE_MESSAGE - 1; index != 0; index--)
-            {
-                str_modem[index] = '\0';
-            }
+//            for (uint8_t index = MAX_SIZE_MESSAGE - 1; index != 0; index--)
+//            {
+//                str_modem[index] = '\0';
+//            }
             Modem_read_cmd(str_modem); // read data form modem
-            LCD_CursorPosition(2, 1);
-            LCD_PrintString("M:");
-            LCD_PrintString(str_modem); //indique que le pic est en fonctionement
+//            LCD_CursorPosition(2, 1);
+//            LCD_PrintString("M:");
+//            LCD_PrintString(str_modem); //indique que le pic est en fonctionement
             P2_VERTE = LED_ON;
             if (strcmp("sms", str_modem) == 0)
             {
@@ -195,10 +194,10 @@ void main(void)
         if (POELE_DataReady) // Poele Receive Buffer is full ('1')
         {
             P2_ROUGE = LED_ON;
-            for (uint8_t index = MAX_SIZE_MESSAGE - 1; index != 0; index--)
-            {
-                str_POELE[index] = '\0';
-            }
+//            for (uint8_t index = MAX_SIZE_MESSAGE - 1; index != 0; index--)
+//            {
+//                str_POELE[index] = '\0';
+//            }
             POELE_ReadCmd_FormPoele(str_POELE); // read data form poele
 
             if (strcmp("AT+GMI", str_POELE) == 0)
@@ -259,19 +258,25 @@ void __interrupt() INTERRUPT_InterruptManager(void)
 void PIC_Init(void)
 {
     /// Config Oscillator    
-    //OSCCON = CONF_OSCCON; //clock speed
-
+ 
     // NOSC HFINTOSC; NDIV 1; 
-    OSCCON1 = 0x60;
+    OSCCON1bits.NDIV = 0b0000 ; // DIV 1=>0000, 2=>0001, 4=>0010
     OSCCON1bits.NOSC = 0b110; //New Oscillator Source Request HFINTOSC (1-32MHz)
+    OSCCON2bits.CDIV = 0b0000 ; // DIV 1=>0000, 2=>0001, 4=>0010
+    OSCCON2bits.COSC = 0b110; //New Oscillator Source Request HFINTOSC (1-32MHz)
 
     // CSWHOLD may proceed; SOSCPWR Low power; 
     OSCCON3 = 0x00;
     // MFOEN disabled; LFOEN disabled; ADOEN disabled; SOSCEN disabled; EXTOEN disabled; HFOEN disabled; 
     OSCEN = 0x00;
     // HFFRQ 8_MHz; 
-    OSCFRQ = 0x03;
-
+    OSCFRQbits.HFFRQ = 0b100; //12Mhz
+    // 110 = 32MHz
+    // 101 = 16MHz            
+    // 100 = 12MHz
+    // 011 =  8MHz
+    // 010 =  4MHz
+          
     //Configuration AD PIC
     ANSELA = 0; // Configuration des IO en mode Digital 
     ANSELB = 0; // Configuration des IO en mode Digital 
