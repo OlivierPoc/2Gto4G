@@ -12536,15 +12536,21 @@ void *memccpy (void *restrict, const void *restrict, int, size_t);
 # 15 "./mayen_01.h"
 # 1 "./My_MODEM_UART.h" 1
 <<<<<<< HEAD
+<<<<<<< HEAD
 # 38 "./My_MODEM_UART.h"
 char modem_str[11][65] = {0};
 static char modem_buffer_index=0;
 static char modem_read_buffer=0;
 =======
+=======
+>>>>>>> parent of 99d1453 (debug and change name)
 # 39 "./My_MODEM_UART.h"
 char modem_str[11][20] = {0};
 char modem_buffer_index=0;
 char modem_read_buffer=0;
+<<<<<<< HEAD
+>>>>>>> parent of 99d1453 (debug and change name)
+=======
 >>>>>>> parent of 99d1453 (debug and change name)
 uint8_t position = 0;
 
@@ -12738,6 +12744,9 @@ void main(void)
                 str_POELE[index] = '\0';
             }
             POELE_cmd(str_POELE);
+<<<<<<< HEAD
+>>>>>>> parent of 99d1453 (debug and change name)
+=======
 >>>>>>> parent of 99d1453 (debug and change name)
 
             if (strcmp("AT+GMI", str_POELE) == 0)
@@ -12764,7 +12773,11 @@ void main(void)
     while (1);
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 # 235 "mayen_01.c"
+=======
+# 258 "mayen_01.c"
+>>>>>>> parent of 99d1453 (debug and change name)
 =======
 # 258 "mayen_01.c"
 >>>>>>> parent of 99d1453 (debug and change name)
@@ -12839,7 +12852,11 @@ void PIC_Init(void)
     RX1DTPPS = 0x16;
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 # 308 "mayen_01.c"
+=======
+# 339 "mayen_01.c"
+>>>>>>> parent of 99d1453 (debug and change name)
 =======
 # 339 "mayen_01.c"
 >>>>>>> parent of 99d1453 (debug and change name)

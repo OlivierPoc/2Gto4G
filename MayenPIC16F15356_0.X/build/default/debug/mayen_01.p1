@@ -64,12 +64,15 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;./MyLib_LCD.h: 81: void LCD_CursorPosition(uint8_t ligne, uint8_t colonne);
 [v _LCD_CursorPosition `(v ~T0 @X0 0 ef2`uc`uc ]
 <<<<<<< HEAD
+<<<<<<< HEAD
 "53 ./My_MODEM_UART.h
 [; ;./My_MODEM_UART.h: 53: void Modem_write_cmd_ToModem(char *str);
 [v _Modem_write_cmd_ToModem `(v ~T0 @X0 0 ef1`*uc ]
 "48
 [; ;./My_MODEM_UART.h: 48: _Bool Modem_DataIsReceived(void);
 =======
+=======
+>>>>>>> parent of 99d1453 (debug and change name)
 "54 ./My_MODEM_UART.h
 [; ;./My_MODEM_UART.h: 54: void Modem_write_cmd(char *str);
 [v _Modem_write_cmd `(v ~T0 @X0 0 ef1`*uc ]
@@ -84,6 +87,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;C:\Program Files\Microchip\xc8\v2.50\pic\include\c99\string.h: 39: int strcmp (const char *, const char *);
 [v _strcmp `(i ~T0 @X0 0 ef2`*Cuc`*Cuc ]
 <<<<<<< HEAD
+<<<<<<< HEAD
 "40 ./My_POELE_UART.h
 [; ;./My_POELE_UART.h: 40: void POELE_SendStringCRLF_ToPoele(char *str);
 [v _POELE_SendStringCRLF_ToPoele `(v ~T0 @X0 0 ef1`*uc ]
@@ -97,6 +101,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;./My_POELE_UART.h: 47: void POELE_SendOK_ToPoele(void);
 [v _POELE_SendOK_ToPoele `(v ~T0 @X0 0 ef ]
 =======
+=======
+>>>>>>> parent of 99d1453 (debug and change name)
 "38 ./My_POELE_UART.h
 [; ;./My_POELE_UART.h: 38: void POELE_SendStringCRLF(char *str);
 [v _POELE_SendStringCRLF `(v ~T0 @X0 0 ef1`*uc ]
@@ -109,6 +115,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 "44
 [; ;./My_POELE_UART.h: 44: void POELE_cmd(char *str);
 [v _POELE_cmd `(v ~T0 @X0 0 ef1`*uc ]
+<<<<<<< HEAD
+>>>>>>> parent of 99d1453 (debug and change name)
+=======
 >>>>>>> parent of 99d1453 (debug and change name)
 [t ~ __interrupt . k ]
 [t T1 __interrupt ]
@@ -1295,6 +1304,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 ..
 ]
 <<<<<<< HEAD
+<<<<<<< HEAD
 "39
 [; ;./My_MODEM_UART.h: 39: static char modem_buffer_index=0;
 [v _modem_buffer_index `uc ~T0 @X0 1 s ]
@@ -1304,6 +1314,17 @@ Version 4.0 HI-TECH Software Intermediate Code
 "40
 [; ;./My_MODEM_UART.h: 40: static char modem_read_buffer=0;
 [v _modem_read_buffer `uc ~T0 @X0 1 s ]
+=======
+"40
+[; ;./My_MODEM_UART.h: 40: char modem_buffer_index=0;
+[v _modem_buffer_index `uc ~T0 @X0 1 e ]
+[i _modem_buffer_index
+-> -> 0 `i `uc
+]
+"41
+[; ;./My_MODEM_UART.h: 41: char modem_read_buffer=0;
+[v _modem_read_buffer `uc ~T0 @X0 1 e ]
+>>>>>>> parent of 99d1453 (debug and change name)
 =======
 "40
 [; ;./My_MODEM_UART.h: 40: char modem_buffer_index=0;
@@ -1402,7 +1423,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 :U ..
 "115
 <<<<<<< HEAD
+<<<<<<< HEAD
 [; ;mayen_01.c: 115:     char str_modem[65] = {0};
+=======
+[; ;mayen_01.c: 115:     char str_modem[25] = {0};
+>>>>>>> parent of 99d1453 (debug and change name)
 =======
 [; ;mayen_01.c: 115:     char str_modem[25] = {0};
 >>>>>>> parent of 99d1453 (debug and change name)
@@ -1419,7 +1444,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 :U ..
 "117
 <<<<<<< HEAD
+<<<<<<< HEAD
 [; ;mayen_01.c: 117:     char str_POELE[65] = {0};
+=======
+[; ;mayen_01.c: 117:     char str_POELE[25] = {0};
+>>>>>>> parent of 99d1453 (debug and change name)
 =======
 [; ;mayen_01.c: 117:     char str_POELE[25] = {0};
 >>>>>>> parent of 99d1453 (debug and change name)
@@ -1519,7 +1548,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e ( _LCD_Clear ..  ]
 "151
 <<<<<<< HEAD
+<<<<<<< HEAD
 [; ;mayen_01.c: 151:             ptr = "AT+GMM";
+=======
+[; ;mayen_01.c: 151:             ptr = "AT+CGMM";
+>>>>>>> parent of 99d1453 (debug and change name)
 =======
 [; ;mayen_01.c: 151:             ptr = "AT+CGMM";
 >>>>>>> parent of 99d1453 (debug and change name)
@@ -1542,8 +1575,13 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :U 986 ]
 "156
 <<<<<<< HEAD
+<<<<<<< HEAD
 [; ;mayen_01.c: 156:             Modem_write_cmd_ToModem(ptr);
 [e ( _Modem_write_cmd_ToModem (1 _ptr ]
+=======
+[; ;mayen_01.c: 156:             Modem_write_cmd(ptr);
+[e ( _Modem_write_cmd (1 _ptr ]
+>>>>>>> parent of 99d1453 (debug and change name)
 =======
 [; ;mayen_01.c: 156:             Modem_write_cmd(ptr);
 [e ( _Modem_write_cmd (1 _ptr ]
@@ -1582,8 +1620,13 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :U 990 ]
 "168
 <<<<<<< HEAD
+<<<<<<< HEAD
 [; ;mayen_01.c: 168:             Modem_write_cmd_ToModem(ptr);
 [e ( _Modem_write_cmd_ToModem (1 _ptr ]
+=======
+[; ;mayen_01.c: 168:             Modem_write_cmd(ptr);
+[e ( _Modem_write_cmd (1 _ptr ]
+>>>>>>> parent of 99d1453 (debug and change name)
 =======
 [; ;mayen_01.c: 168:             Modem_write_cmd(ptr);
 [e ( _Modem_write_cmd (1 _ptr ]
@@ -1599,10 +1642,13 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;mayen_01.c: 172:         {
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
 "177
 [; ;mayen_01.c: 177:             Modem_read_cmd(str_modem);
 [e ( _Modem_read_cmd (1 &U _str_modem ]
 =======
+=======
+>>>>>>> parent of 99d1453 (debug and change name)
 "173
 [; ;mayen_01.c: 173:             for (uint8_t index = 25 - 1; index != 0; index--)
 {
@@ -1636,6 +1682,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 "180
 [; ;mayen_01.c: 180:             LCD_PrintString(str_modem);
 [e ( _LCD_PrintString (1 &U _str_modem ]
+<<<<<<< HEAD
+>>>>>>> parent of 99d1453 (debug and change name)
+=======
 >>>>>>> parent of 99d1453 (debug and change name)
 "181
 [; ;mayen_01.c: 181:             LATBbits.LATB5 = 0;
@@ -1643,7 +1692,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 "182
 [; ;mayen_01.c: 182:             if (strcmp("sms", str_modem) == 0)
 <<<<<<< HEAD
+<<<<<<< HEAD
 [e $ ! == ( _strcmp (2 , :s 8C -> &U _str_modem `*Cuc -> 0 `i 992  ]
+=======
+[e $ ! == ( _strcmp (2 , :s 9C -> &U _str_modem `*Cuc -> 0 `i 995  ]
+>>>>>>> parent of 99d1453 (debug and change name)
 =======
 [e $ ! == ( _strcmp (2 , :s 9C -> &U _str_modem `*Cuc -> 0 `i 995  ]
 >>>>>>> parent of 99d1453 (debug and change name)
@@ -1663,11 +1716,15 @@ Version 4.0 HI-TECH Software Intermediate Code
 "186
 [; ;mayen_01.c: 186:             else
 [e :U 995 ]
+<<<<<<< HEAD
+>>>>>>> parent of 99d1453 (debug and change name)
+=======
 >>>>>>> parent of 99d1453 (debug and change name)
 "187
 [; ;mayen_01.c: 187:             {
 {
 "188
+<<<<<<< HEAD
 <<<<<<< HEAD
 [; ;mayen_01.c: 188:                 POELE_SendStringCRLF_ToPoele(str_modem);
 [e ( _POELE_SendStringCRLF_ToPoele (1 &U _str_modem ]
@@ -1676,6 +1733,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 }
 [e :U 993 ]
 =======
+=======
+>>>>>>> parent of 99d1453 (debug and change name)
 [; ;mayen_01.c: 188:                 POELE_SendStringCRLF(str_modem);
 [e ( _POELE_SendStringCRLF (1 &U _str_modem ]
 "189
@@ -1685,6 +1744,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;mayen_01.c: 190:             }
 }
 [e :U 996 ]
+<<<<<<< HEAD
+>>>>>>> parent of 99d1453 (debug and change name)
+=======
 >>>>>>> parent of 99d1453 (debug and change name)
 "191
 [; ;mayen_01.c: 191:             LATBbits.LATB5 = 1;
@@ -1696,7 +1758,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 "194
 [; ;mayen_01.c: 194:         if ((POELE_DataIsReceived()))
 <<<<<<< HEAD
+<<<<<<< HEAD
 [e $ ! != -> ( _POELE_DataIsReceived ..  `i -> 0 `i 994  ]
+=======
+[e $ ! != -> ( _POELE_DataIsReceived ..  `i -> 0 `i 997  ]
+>>>>>>> parent of 99d1453 (debug and change name)
 =======
 [e $ ! != -> ( _POELE_DataIsReceived ..  `i -> 0 `i 997  ]
 >>>>>>> parent of 99d1453 (debug and change name)
@@ -1707,6 +1773,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;mayen_01.c: 196:             LATBbits.LATB4 = 0;
 [e = . . _LATBbits 0 4 -> -> 0 `i `uc ]
 <<<<<<< HEAD
+<<<<<<< HEAD
 "201
 [; ;mayen_01.c: 201:             POELE_ReadCmd_FormPoele(str_POELE);
 [e ( _POELE_ReadCmd_FormPoele (1 &U _str_POELE ]
@@ -1714,6 +1781,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;mayen_01.c: 203:             if (strcmp("AT+GMI", str_POELE) == 0)
 [e $ ! == ( _strcmp (2 , :s 9C -> &U _str_POELE `*Cuc -> 0 `i 995  ]
 =======
+=======
+>>>>>>> parent of 99d1453 (debug and change name)
 "197
 [; ;mayen_01.c: 197:             for (uint8_t index = 25 - 1; index != 0; index--)
 {
@@ -1741,11 +1810,15 @@ Version 4.0 HI-TECH Software Intermediate Code
 "203
 [; ;mayen_01.c: 203:             if (strcmp("AT+GMI", str_POELE) == 0)
 [e $ ! == ( _strcmp (2 , :s 10C -> &U _str_POELE `*Cuc -> 0 `i 1001  ]
+<<<<<<< HEAD
+>>>>>>> parent of 99d1453 (debug and change name)
+=======
 >>>>>>> parent of 99d1453 (debug and change name)
 "204
 [; ;mayen_01.c: 204:             {
 {
 "205
+<<<<<<< HEAD
 <<<<<<< HEAD
 [; ;mayen_01.c: 205:                 POELE_SendStringCRLF_ToPoele("Cinterion");
 [e ( _POELE_SendStringCRLF_ToPoele (1 :s 10C ]
@@ -1764,6 +1837,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;mayen_01.c: 205:                 POELE_SendStringCRLF("Cinterion");
 [e ( _POELE_SendStringCRLF (1 :s 11C ]
 "206
+=======
+[; ;mayen_01.c: 205:                 POELE_SendStringCRLF("Cinterion");
+[e ( _POELE_SendStringCRLF (1 :s 11C ]
+"206
+>>>>>>> parent of 99d1453 (debug and change name)
 [; ;mayen_01.c: 206:                 POELE_SendOK();
 [e ( _POELE_SendOK ..  ]
 "207
@@ -1774,11 +1852,15 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;mayen_01.c: 208:             else if (strcmp("AT+GMM", str_POELE) == 0)
 [e :U 1001 ]
 [e $ ! == ( _strcmp (2 , :s 12C -> &U _str_POELE `*Cuc -> 0 `i 1003  ]
+<<<<<<< HEAD
+>>>>>>> parent of 99d1453 (debug and change name)
+=======
 >>>>>>> parent of 99d1453 (debug and change name)
 "209
 [; ;mayen_01.c: 209:             {
 {
 "210
+<<<<<<< HEAD
 <<<<<<< HEAD
 [; ;mayen_01.c: 210:                 POELE_SendStringCRLF_ToPoele("BGS2-W");
 [e ( _POELE_SendStringCRLF_ToPoele (1 :s 12C ]
@@ -1791,6 +1873,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;mayen_01.c: 210:                 POELE_SendStringCRLF("BGS2-W");
 [e ( _POELE_SendStringCRLF (1 :s 13C ]
 "211
+=======
+[; ;mayen_01.c: 210:                 POELE_SendStringCRLF("BGS2-W");
+[e ( _POELE_SendStringCRLF (1 :s 13C ]
+"211
+>>>>>>> parent of 99d1453 (debug and change name)
 [; ;mayen_01.c: 211:                 POELE_SendOK();
 [e ( _POELE_SendOK ..  ]
 "212
@@ -1816,12 +1903,16 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = . . _LATBbits 0 4 -> -> 1 `i `uc ]
 "244
 [; ;mayen_01.c: 244:         }
+<<<<<<< HEAD
+>>>>>>> parent of 99d1453 (debug and change name)
+=======
 >>>>>>> parent of 99d1453 (debug and change name)
 }
 [e $U 998  ]
 "215
 [; ;mayen_01.c: 215:             else
 [e :U 997 ]
+<<<<<<< HEAD
 <<<<<<< HEAD
 "216
 [; ;mayen_01.c: 216:             {
@@ -1933,6 +2024,13 @@ Version 4.0 HI-TECH Software Intermediate Code
 }
 [e $ != -> 1 `i -> 0 `i 978  ]
 [e :U 977 ]
+=======
+"245
+[; ;mayen_01.c: 245:     }
+}
+[e $ != -> 1 `i -> 0 `i 978  ]
+[e :U 977 ]
+>>>>>>> parent of 99d1453 (debug and change name)
 "248
 [; ;mayen_01.c: 248:     while (1);
 [e :U 1006 ]
@@ -2008,11 +2106,15 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = . . _OSCCON1bits 0 1 -> -> 6 `i `uc ]
 "305
 [; ;mayen_01.c: 305:     OSCCON3 = 0x00;
+<<<<<<< HEAD
+>>>>>>> parent of 99d1453 (debug and change name)
+=======
 >>>>>>> parent of 99d1453 (debug and change name)
 [e = _OSCCON3 -> -> 0 `i `uc ]
 "307
 [; ;mayen_01.c: 307:     OSCEN = 0x00;
 [e = _OSCEN -> -> 0 `i `uc ]
+<<<<<<< HEAD
 <<<<<<< HEAD
 "273
 [; ;mayen_01.c: 273:     OSCFRQbits.HFFRQ = 0b100;
@@ -2159,6 +2261,62 @@ Version 4.0 HI-TECH Software Intermediate Code
 {
 [e :U _Modem_BOOT ]
 [f ]
+=======
+"309
+[; ;mayen_01.c: 309:     OSCFRQ = 0x03;
+[e = _OSCFRQ -> -> 3 `i `uc ]
+"312
+[; ;mayen_01.c: 312:     ANSELA = 0;
+[e = _ANSELA -> -> 0 `i `uc ]
+"313
+[; ;mayen_01.c: 313:     ANSELB = 0;
+[e = _ANSELB -> -> 0 `i `uc ]
+"314
+[; ;mayen_01.c: 314:     ANSELC = 0;
+[e = _ANSELC -> -> 0 `i `uc ]
+"317
+[; ;mayen_01.c: 317:     LATA = 0b11111111;
+[e = _LATA -> -> 255 `i `uc ]
+"318
+[; ;mayen_01.c: 318:     LATB = 0b00101111;
+[e = _LATB -> -> 47 `i `uc ]
+"319
+[; ;mayen_01.c: 319:     LATC = 0b00000000;
+[e = _LATC -> -> 0 `i `uc ]
+"322
+[; ;mayen_01.c: 322:     TRISA = 0b00000000;
+[e = _TRISA -> -> 0 `i `uc ]
+"323
+[; ;mayen_01.c: 323:     TRISB = 0b11001000;
+[e = _TRISB -> -> 200 `i `uc ]
+"324
+[; ;mayen_01.c: 324:     TRISC = 0b01000111;
+[e = _TRISC -> -> 71 `i `uc ]
+"326
+[; ;mayen_01.c: 326:     RB2PPS = 0x11;
+[e = _RB2PPS -> -> 17 `i `uc ]
+"327
+[; ;mayen_01.c: 327:     RC7PPS = 0x0F;
+[e = _RC7PPS -> -> 15 `i `uc ]
+"328
+[; ;mayen_01.c: 328:     RX2DTPPS = 0x0B;
+[e = _RX2DTPPS -> -> 11 `i `uc ]
+"329
+[; ;mayen_01.c: 329:     RX1DTPPS = 0x16;
+[e = _RX1DTPPS -> -> 22 `i `uc ]
+"330
+[; ;mayen_01.c: 330: }
+[e :UE 1012 ]
+}
+"339
+[; ;mayen_01.c: 339: void Modem_BOOT(void)
+[v _Modem_BOOT `(v ~T0 @X0 1 ef ]
+"340
+[; ;mayen_01.c: 340: {
+{
+[e :U _Modem_BOOT ]
+[f ]
+>>>>>>> parent of 99d1453 (debug and change name)
 "341
 [; ;mayen_01.c: 341:     do { LATCbits.LATC5 = 1; } while(0);
 [e :U 1016 ]
@@ -2195,12 +2353,16 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e ( __delay (1 -> * -> -> 500 `i `d / -> -> 8000000 `l `d .4000.0 `ul ]
 "348
 [; ;mayen_01.c: 348:     }
+<<<<<<< HEAD
+>>>>>>> parent of 99d1453 (debug and change name)
+=======
 >>>>>>> parent of 99d1453 (debug and change name)
 }
 [e -- _time -> -> 1 `i `uc ]
 [e $ != -> _time `i -> 0 `i 1014  ]
 [e :U 1015 ]
 }
+<<<<<<< HEAD
 <<<<<<< HEAD
 "319
 [; ;mayen_01.c: 319: }
@@ -2210,6 +2372,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [a 10C 67 105 110 116 101 114 105 111 110 0 ]
 [a 12C 66 71 83 50 45 87 0 ]
 =======
+=======
+>>>>>>> parent of 99d1453 (debug and change name)
 "350
 [; ;mayen_01.c: 350: }
 [e :UE 1013 ]

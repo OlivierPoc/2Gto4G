@@ -205,6 +205,9 @@ void main(void)
                 str_POELE[index] = '\0';
             }
             POELE_cmd(str_POELE); // read data form poele
+<<<<<<< HEAD
+>>>>>>> parent of 99d1453 (debug and change name)
+=======
 >>>>>>> parent of 99d1453 (debug and change name)
 
             if (strcmp("AT+GMI", str_POELE) == 0)
