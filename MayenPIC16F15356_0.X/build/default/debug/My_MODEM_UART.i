@@ -12533,8 +12533,8 @@ void *memccpy (void *restrict, const void *restrict, int, size_t);
 # 17 "./My_MODEM_UART.h" 2
 # 39 "./My_MODEM_UART.h"
 char modem_str[11][20] = {0};
-char modem_buffer_index=0;
-char modem_read_buffer=0;
+static char modem_buffer_index=0;
+static char modem_read_buffer=0;
 uint8_t position = 0;
 
 
@@ -12547,7 +12547,7 @@ _Bool Modem_DataIsReceived(void);
 void Modem_Read(void);
 void Modem_EmptyData(void);
 void Modem_read_cmd(char *str);
-void Modem_write_cmd(char *str);
+void Modem_write_cmd_ToModem(char *str);
 # 11 "My_MODEM_UART.c" 2
 
 
@@ -12651,7 +12651,6 @@ uint8_t UART1_Read()
 # 146 "My_MODEM_UART.c"
 _Bool Modem_DataIsReceived(void)
 {
-
     if (modem_buffer_index != modem_read_buffer)
     {
         return 1;
@@ -12659,13 +12658,12 @@ _Bool Modem_DataIsReceived(void)
     }
     else
     {
-        modem_buffer_index = 0;
-        modem_read_buffer = 0;
+
+
         return 0;
     }
-
 }
-# 170 "My_MODEM_UART.c"
+# 168 "My_MODEM_UART.c"
 void UART1_SendString(char *str)
 {
     while (*str != '\0')
@@ -12676,7 +12674,7 @@ void UART1_SendString(char *str)
     UART1_Write(0x0D);
     UART1_Write(0x0A);
 }
-# 188 "My_MODEM_UART.c"
+# 186 "My_MODEM_UART.c"
 void Modem_Read(void)
 {
 
@@ -12701,7 +12699,6 @@ void Modem_Read(void)
         else if (data != 0x0A)
         {
             modem_str[modem_buffer_index][position] = data;
-
             position++;
 
         }
@@ -12716,7 +12713,7 @@ void Modem_Read(void)
         modem_buffer_index = 0;
     }
 }
-# 235 "My_MODEM_UART.c"
+# 232 "My_MODEM_UART.c"
 void Modem_EmptyData(void)
 {
     PIE3bits.RC1IE = 0;
@@ -12734,7 +12731,7 @@ void Modem_EmptyData(void)
 
     PIE3bits.RC1IE = 1;
 }
-# 260 "My_MODEM_UART.c"
+# 257 "My_MODEM_UART.c"
 void Modem_read_cmd(char *str)
 {
     uint8_t readPosition = 0;
@@ -12749,14 +12746,15 @@ void Modem_read_cmd(char *str)
         readPosition++;
     }
     modem_read_buffer++;
+
     if (modem_read_buffer == 9)
     {
         modem_read_buffer = 0;
     }
 
 }
-# 288 "My_MODEM_UART.c"
-void Modem_write_cmd(char *str)
+# 286 "My_MODEM_UART.c"
+void Modem_write_cmd_ToModem(char *str)
 {
     UART1_SendString(str);
 }

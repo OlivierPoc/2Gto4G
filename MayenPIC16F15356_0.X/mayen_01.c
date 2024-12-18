@@ -8,6 +8,7 @@
  *              V02 211111 correction TRISC RC7 input pour RxD
  *              V03 211111 char -> uint8_t
  *              V04 241025 mise a jour pour hardware "modem2g4g"
+ *              V05 241218 debug
  */
 
 //----- Including libraries --
@@ -153,7 +154,7 @@ void main(void)
             LCD_PrintString("P:");
             LCD_PrintString(ptr); //indique que le pic est en fonctionement
             while (S1 == PRESS);
-            Modem_write_cmd(ptr);
+            Modem_write_cmd_ToModem(ptr);
         }
 
         if (S2 == PRESS)
@@ -165,7 +166,7 @@ void main(void)
             LCD_PrintString(ptr); //indique que le pic est en fonctionement
             //POELE_cmd(str_POELE);
             while (S2 == PRESS);
-            Modem_write_cmd(ptr);
+            Modem_write_cmd_ToModem(ptr);
         }
 
         if (Modem_DataIsReceived()) // Modem Receive Buffer is full ('1')
@@ -185,8 +186,8 @@ void main(void)
             }
             else
             {
-                POELE_SendStringCRLF(str_modem);
-                POELE_SendOK();
+                POELE_SendStringCRLF_ToPoele(str_modem);
+                //POELE_SendOK();
             }
             P2_VERTE = LED_OFF;
         }
@@ -198,46 +199,23 @@ void main(void)
             {
                 str_POELE[index] = '\0';
             }
-            POELE_cmd(str_POELE); // read data form poele
+            POELE_ReadCmd_FormPoele(str_POELE); // read data form poele
 
             if (strcmp("AT+GMI", str_POELE) == 0)
             {
-                POELE_SendStringCRLF("Cinterion");
-                POELE_SendOK();
+                POELE_SendStringCRLF_ToPoele("Cinterion");
+                POELE_SendOK_ToPoele();
             }
             else if (strcmp("AT+GMM", str_POELE) == 0)
             {
-                POELE_SendStringCRLF("BGS2-W");
-                POELE_SendOK();
+                POELE_SendStringCRLF_ToPoele("BGS2-W");
+                POELE_SendOK_ToPoele();
             }
                 //            else if (strcmp("AT+CMGR=1", str_POELE) == 0)
                 //            {
-                //                if (message)
-                //                {
-                //                    POELE_SendString("\r\n+CMGR:0,\"REC UNREAD\",\"+41793018256\",,\"23/01/01,22:10:00+08\"\r\n");
-                //                    //UART2_Write(LF);
-                //                    POELE_SendString("4139 ?");
-                //                    //UART2_Write('\x1A');
-                //                    POELE_SendStringCRLF("");
-                //                    POELE_SendOK();
-                //                }
-                //                else
-                //                {
-                //                    POELE_SendStringCRLF("");
-                //                    POELE_SendStringCRLF("+CMGR: 0,,0");
-                //                    POELE_SendOK();
-                //                }
-                //            }
-                //            else if (strcmp("AT+CMGS=\"+41793018256\"", str_POELE) == 0)
-                //            {
-                //                while (!POELE_DataReady); //Attend le message
-                //                POELE_cmd(str_POELE);
-                //                POELE_SendStringCRLF("*CF+CMGS: 73");
-                //                POELE_SendOK();
-                //            }
             else
             {
-                Modem_write_cmd(str_POELE);
+                Modem_write_cmd_ToModem(str_POELE);  // send directly cmd form poele to modem
             }
 
             P2_ROUGE = LED_OFF;
@@ -262,27 +240,13 @@ void __interrupt() INTERRUPT_InterruptManager(void)
     {
         if (PIE3bits.RC2IE == 1 && PIR3bits.RC2IF == 1)
         {
-            POELE_Read();
+            POELE_Read();  // Read data form poel
         }
-        //        else if (PIE3bits.TX2IE == 1 && PIR3bits.TX2IF == 1)
-        //        {
-        //            PIR3bits.TX1IF = 0;
-        //        }
-        //        else 
+   
         if (PIE3bits.RC1IE == 1 && PIR3bits.RC1IF == 1)
         {
-            Modem_Read(); // Reiceiver interrupt
+            Modem_Read(); // Reiceiver data form modem
         }
-        //        else if (PIE3bits.RC2IE == 1 && PIR3bits.RC2IF == 1)
-        //        {
-        //            POELE_Read();
-        //        }
-        //        else if (PIE3bits.TX1IE == 1 && PIR3bits.TX1IF == 1)
-        //        {
-        //            PIR3bits.TX1IF = 0;
-        //        }
-        //        {
-        //        }
     }
 }
 
@@ -350,15 +314,4 @@ void Modem_BOOT(void)
 }
 //-------------------------------------------------------------------
 
-//---------------------------------------------------------
-// Sous programme EmptyReceiver
-// Auteur: POC
-// Desc.: vide la buffer de reception
-// Ver. Date: V00 20170604 Création (YYYYMMDD)	
-//---------------------------------------------------------
-void Empty_str(void)
-{
-
-}
-//---------------------------------------------------------
 //================== END Of File ======================================
