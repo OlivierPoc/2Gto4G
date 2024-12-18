@@ -193,22 +193,6 @@ void main(void)
         if (POELE_DataReady) // Poele Receive Buffer is full ('1')
         {
             P2_ROUGE = LED_ON;
-<<<<<<< HEAD
-//            for (uint8_t index = MAX_SIZE_MESSAGE - 1; index != 0; index--)
-//            {
-//                str_POELE[index] = '\0';
-//            }
-            POELE_ReadCmd_FormPoele(str_POELE); // read data form poele
-=======
-            for (uint8_t index = MAX_SIZE_MESSAGE - 1; index != 0; index--)
-            {
-                str_POELE[index] = '\0';
-            }
-            POELE_cmd(str_POELE); // read data form poele
-<<<<<<< HEAD
->>>>>>> parent of 99d1453 (debug and change name)
-=======
->>>>>>> parent of 99d1453 (debug and change name)
 
             if (strcmp("AT+GMI", str_POELE) == 0)
             {

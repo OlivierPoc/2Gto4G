@@ -154,16 +154,6 @@ bool Modem_DataIsReceived(void)
     }
     else
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-        modem_buffer_index = 0;
-        modem_read_buffer = 0;
->>>>>>> parent of 99d1453 (debug and change name)
-=======
-        modem_buffer_index = 0;
-        modem_read_buffer = 0;
->>>>>>> parent of 99d1453 (debug and change name)
         return false;
     }
 
@@ -275,15 +265,8 @@ void Modem_read_cmd(char *str)
         readPosition++;
     }
     modem_read_buffer++;
-<<<<<<< HEAD
-<<<<<<< HEAD
 
     if (modem_read_buffer == LIGNE)
-=======
-=======
->>>>>>> parent of 99d1453 (debug and change name)
-    if (modem_read_buffer == 9)
->>>>>>> parent of 99d1453 (debug and change name)
     {
         modem_read_buffer = 0;
     }
