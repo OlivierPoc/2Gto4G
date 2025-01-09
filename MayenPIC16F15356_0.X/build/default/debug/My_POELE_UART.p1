@@ -1250,40 +1250,15 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;My_POELE_UART.c: 142: }
 [e :UE 983 ]
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
 "151
-[; ;My_POELE_UART.c: 151: void POELE_SendStringCRLF_ToPoele(char *str)
-[v _POELE_SendStringCRLF_ToPoele `(v ~T0 @X0 1 ef1`*uc ]
+[; ;My_POELE_UART.c: 151: void POELE_SendStringCRLF(char *str)
+[v _POELE_SendStringCRLF `(v ~T0 @X0 1 ef1`*uc ]
 "152
 [; ;My_POELE_UART.c: 152: {
 {
-[e :U _POELE_SendStringCRLF_ToPoele ]
+[e :U _POELE_SendStringCRLF ]
 "151
-[; ;My_POELE_UART.c: 151: void POELE_SendStringCRLF_ToPoele(char *str)
-=======
-"153
-[; ;My_POELE_UART.c: 153: void POELE_SendStringCRLF(char *str)
-[v _POELE_SendStringCRLF `(v ~T0 @X0 1 ef1`*uc ]
-=======
-"153
-[; ;My_POELE_UART.c: 153: void POELE_SendStringCRLF(char *str)
-[v _POELE_SendStringCRLF `(v ~T0 @X0 1 ef1`*uc ]
-"154
-[; ;My_POELE_UART.c: 154: {
-{
-[e :U _POELE_SendStringCRLF ]
-"153
-[; ;My_POELE_UART.c: 153: void POELE_SendStringCRLF(char *str)
-[v _str `*uc ~T0 @X0 1 r1 ]
->>>>>>> parent of 99d1453 (debug and change name)
-"154
-[; ;My_POELE_UART.c: 154: {
-{
-[e :U _POELE_SendStringCRLF ]
-"153
-[; ;My_POELE_UART.c: 153: void POELE_SendStringCRLF(char *str)
->>>>>>> parent of 99d1453 (debug and change name)
+[; ;My_POELE_UART.c: 151: void POELE_SendStringCRLF(char *str)
 [v _str `*uc ~T0 @X0 1 r1 ]
 "152
 [; ;My_POELE_UART.c: 152: {
@@ -1357,22 +1332,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;My_POELE_UART.c: 175: }
 [e :UE 988 ]
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
 "184
-[; ;My_POELE_UART.c: 184: void POELE_SendOK_ToPoele(void)
-[v _POELE_SendOK_ToPoele `(v ~T0 @X0 1 ef ]
+[; ;My_POELE_UART.c: 184: void POELE_SendOK(void)
+[v _POELE_SendOK `(v ~T0 @X0 1 ef ]
 "185
 [; ;My_POELE_UART.c: 185: {
-=======
-=======
->>>>>>> parent of 99d1453 (debug and change name)
-"186
-[; ;My_POELE_UART.c: 186: void POELE_SendOK(void)
-[v _POELE_SendOK `(v ~T0 @X0 1 ef ]
-"187
-[; ;My_POELE_UART.c: 187: {
->>>>>>> parent of 99d1453 (debug and change name)
 {
 [e :U _POELE_SendOK ]
 [f ]
@@ -1515,40 +1479,15 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;My_POELE_UART.c: 250: }
 [e :UE 999 ]
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
 "261
-[; ;My_POELE_UART.c: 261: void POELE_ReadCmd_FormPoele(char *str)
-[v _POELE_ReadCmd_FormPoele `(v ~T0 @X0 1 ef1`*uc ]
+[; ;My_POELE_UART.c: 261: void POELE_cmd(char *str)
+[v _POELE_cmd `(v ~T0 @X0 1 ef1`*uc ]
 "262
 [; ;My_POELE_UART.c: 262: {
 {
-[e :U _POELE_ReadCmd_FormPoele ]
+[e :U _POELE_cmd ]
 "261
-[; ;My_POELE_UART.c: 261: void POELE_ReadCmd_FormPoele(char *str)
-=======
-"263
-[; ;My_POELE_UART.c: 263: void POELE_cmd(char *str)
-[v _POELE_cmd `(v ~T0 @X0 1 ef1`*uc ]
-=======
-"263
-[; ;My_POELE_UART.c: 263: void POELE_cmd(char *str)
-[v _POELE_cmd `(v ~T0 @X0 1 ef1`*uc ]
-"264
-[; ;My_POELE_UART.c: 264: {
-{
-[e :U _POELE_cmd ]
-"263
-[; ;My_POELE_UART.c: 263: void POELE_cmd(char *str)
-[v _str `*uc ~T0 @X0 1 r1 ]
->>>>>>> parent of 99d1453 (debug and change name)
-"264
-[; ;My_POELE_UART.c: 264: {
-{
-[e :U _POELE_cmd ]
-"263
-[; ;My_POELE_UART.c: 263: void POELE_cmd(char *str)
->>>>>>> parent of 99d1453 (debug and change name)
+[; ;My_POELE_UART.c: 261: void POELE_cmd(char *str)
 [v _str `*uc ~T0 @X0 1 r1 ]
 "262
 [; ;My_POELE_UART.c: 262: {

@@ -12535,23 +12535,10 @@ void *memccpy (void *restrict, const void *restrict, int, size_t);
 # 1 "./mayen_01.h" 1
 # 15 "./mayen_01.h"
 # 1 "./My_MODEM_UART.h" 1
-<<<<<<< HEAD
-<<<<<<< HEAD
 # 38 "./My_MODEM_UART.h"
 char modem_str[11][65] = {0};
-static char modem_buffer_index=0;
-static char modem_read_buffer=0;
-=======
-=======
->>>>>>> parent of 99d1453 (debug and change name)
-# 39 "./My_MODEM_UART.h"
-char modem_str[11][20] = {0};
 char modem_buffer_index=0;
 char modem_read_buffer=0;
-<<<<<<< HEAD
->>>>>>> parent of 99d1453 (debug and change name)
-=======
->>>>>>> parent of 99d1453 (debug and change name)
 uint8_t position = 0;
 
 
@@ -12645,9 +12632,9 @@ void Empty_str(void);
 
 
 #pragma config CP = OFF
-# 94 "mayen_01.c"
+# 93 "mayen_01.c"
 static _Bool message = 0;
-# 113 "mayen_01.c"
+# 112 "mayen_01.c"
 void main(void)
 {
     char str_modem[65] = {0};
@@ -12732,22 +12719,6 @@ void main(void)
         if ((POELE_DataIsReceived()))
         {
             LATBbits.LATB4 = 0;
-<<<<<<< HEAD
-
-
-
-
-            POELE_ReadCmd_FormPoele(str_POELE);
-=======
-            for (uint8_t index = 25 - 1; index != 0; index--)
-            {
-                str_POELE[index] = '\0';
-            }
-            POELE_cmd(str_POELE);
-<<<<<<< HEAD
->>>>>>> parent of 99d1453 (debug and change name)
-=======
->>>>>>> parent of 99d1453 (debug and change name)
 
             if (strcmp("AT+GMI", str_POELE) == 0)
             {
@@ -12759,7 +12730,7 @@ void main(void)
                 POELE_SendStringCRLF("BGS2-W");
                 POELE_SendOK();
             }
-# 238 "mayen_01.c"
+# 232 "mayen_01.c"
             else
             {
                 Modem_write_cmd(str_POELE);
@@ -12772,15 +12743,7 @@ void main(void)
 
     while (1);
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-# 235 "mayen_01.c"
-=======
-# 258 "mayen_01.c"
->>>>>>> parent of 99d1453 (debug and change name)
-=======
-# 258 "mayen_01.c"
->>>>>>> parent of 99d1453 (debug and change name)
+# 252 "mayen_01.c"
 void __attribute__((picinterrupt(("")))) INTERRUPT_InterruptManager(void)
 {
 
@@ -12799,7 +12762,7 @@ void __attribute__((picinterrupt(("")))) INTERRUPT_InterruptManager(void)
         {
             Modem_Read();
         }
-# 286 "mayen_01.c"
+# 280 "mayen_01.c"
     }
 }
 
@@ -12851,15 +12814,7 @@ void PIC_Init(void)
     RX2DTPPS = 0x0B;
     RX1DTPPS = 0x16;
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-# 308 "mayen_01.c"
-=======
 # 339 "mayen_01.c"
->>>>>>> parent of 99d1453 (debug and change name)
-=======
-# 339 "mayen_01.c"
->>>>>>> parent of 99d1453 (debug and change name)
 void Modem_BOOT(void)
 {
     do { LATCbits.LATC5 = 1; } while(0);
